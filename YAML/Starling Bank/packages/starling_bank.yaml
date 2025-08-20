@@ -1,0 +1,217 @@
+# ============================================================
+# Starling Bank → Home Assistant (REST + Templates)
+# Anonymised example for sharing on GitHub (British English).
+#
+# What this package provides:
+# - Primary account balance via /api/v2/accounts/{accountUid}/balance
+# - Space list via /api/v2/account/{accountUid}/spaces
+# - Per-child space details via /api/v2/account/{accountUid}/spaces/spending/{spaceUid}
+# - Template sensors to show the latest spend summary per child
+# - Lovelace examples (see dashboards/starling_cards.yaml)
+#
+# Notes:
+# - Keep tokens in secrets.yaml. UIDs can live in secrets or be pasted below.
+# - Starling amounts are minor units (pence) → divide by 100 for GBP.
+# - Be polite with polling intervals.
+# - If your 'spending space' endpoint returns a different shape, tweak the
+#   templates below — they already try `feedItems` OR `transactions`.
+# ============================================================
+
+# ---------- REST Sensors ----------
+sensor:
+  # --- Primary account balance ---
+  - platform: rest
+    name: "Starling Account Balance (GBP)"
+    # If you prefer to keep the UIDs in secrets, replace ACCOUNT_UID with your value
+    # or hard-code the full URL. Keeping this as plain text helps portability.
+    resource: "https://api.starlingbank.com/api/v2/accounts/ACCOUNT_UID/balance"
+    method: GET
+    headers:
+      # Token comes from secrets; Home Assistant will substitute it here.
+      Authorization: "Bearer !secret starling_api_token"
+      Accept: "application/json"
+    scan_interval: 900  # 15 mins
+    value_template: >
+      {% set v = value_json.effectiveBalance.minorUnits if value_json is defined else None %}
+      {{ (v | default(0) | float / 100) | round(2) }}
+    unit_of_measurement: "GBP"
+    json_attributes:
+      - clearedBalance
+      - effectiveBalance
+      - pendingTransactions
+      - acceptedOverdraft
+
+  # --- Space registry ---
+  - platform: rest
+    name: "Starling Spaces"
+    resource: "https://api.starlingbank.com/api/v2/account/ACCOUNT_UID/spaces"
+    method: GET
+    headers:
+      Authorization: "Bearer !secret starling_api_token"
+      Accept: "application/json"
+    scan_interval: 900
+    value_template: "{{ (value_json.spendingSpaces | default([])) | length }}"
+    json_attributes:
+      - spendingSpaces
+      - savingsGoals
+
+  # --- Child A: Spending space ---
+  - platform: rest
+    name: "Child A Space"
+    resource: "https://api.starlingbank.com/api/v2/account/ACCOUNT_UID/spaces/spending/SPACE_UID_CHILD_A"
+    method: GET
+    headers:
+      Authorization: "Bearer !secret starling_api_token"
+      Accept: "application/json"
+    scan_interval: 600  # 10 mins
+    value_template: >
+      {% set items = value_json.feedItems
+           if value_json is defined and value_json.feedItems is defined
+           else value_json.transactions
+           if value_json is defined and value_json.transactions is defined
+           else [] %}
+      {{ items | length }}
+    json_attributes:
+      - feedItems
+      - transactions
+      - balance
+      - name
+      - spendingSpaceType
+      - spaceUid
+
+  # --- Child B: Spending space ---
+  - platform: rest
+    name: "Child B Space"
+    resource: "https://api.starlingbank.com/api/v2/account/ACCOUNT_UID/spaces/spending/SPACE_UID_CHILD_B"
+    method: GET
+    headers:
+      Authorization: "Bearer !secret starling_api_token"
+      Accept: "application/json"
+    scan_interval: 600
+    value_template: >
+      {% set items = value_json.feedItems
+           if value_json is defined and value_json.feedItems is defined
+           else value_json.transactions
+           if value_json is defined and value_json.transactions is defined
+           else [] %}
+      {{ items | length }}
+    json_attributes:
+      - feedItems
+      - transactions
+      - balance
+      - name
+      - spendingSpaceType
+      - spaceUid
+
+# ---------- Template Sensors ----------
+template:
+  - sensor:
+      # ---- Child A: Latest transaction amount (GBP) ----
+      - name: "Child A Latest Transaction"
+        unit_of_measurement: "GBP"
+        state: >
+          {% set raw = state_attr('sensor.child_a_space','feedItems')
+                       if state_attr('sensor.child_a_space','feedItems') is not none
+                       else state_attr('sensor.child_a_space','transactions') %}
+          {% if raw and raw | length > 0 %}
+            {% set first = raw[0] %}
+            {% set minor = (first.amount.minorUnits
+                            if first.amount is defined and first.amount.minorUnits is defined
+                            else first.minorUnits
+                            if first.minorUnits is defined
+                            else 0) %}
+            {{ (minor | float / 100) | round(2) }}
+          {% else %}
+            0
+          {% endif %}
+
+      # ---- Child A: Summary text (merchant/reference) ----
+      - name: "Child A Latest Transaction Summary"
+        state: >
+          {% set raw = state_attr('sensor.child_a_space','feedItems')
+                       if state_attr('sensor.child_a_space','feedItems') is not none
+                       else state_attr('sensor.child_a_space','transactions') %}
+          {% if raw and raw | length > 0 %}
+            {% set first = raw[0] %}
+            {{ first.reference
+               if first.reference is defined
+               else first.counterPartyName
+               if first.counterPartyName is defined
+               else first.narrative
+               if first.narrative is defined
+               else "Latest transaction" }}
+          {% else %}
+            No recent transactions
+          {% endif %}
+
+      # ---- Child A: Timestamp (optional) ----
+      - name: "Child A Latest Transaction Time"
+        state: >
+          {% set raw = state_attr('sensor.child_a_space','feedItems')
+                       if state_attr('sensor.child_a_space','feedItems') is not none
+                       else state_attr('sensor.child_a_space','transactions') %}
+          {% if raw and raw | length > 0 %}
+            {% set first = raw[0] %}
+            {{ first.created
+               if first.created is defined
+               else first.transactionTime
+               if first.transactionTime is defined
+               else now().isoformat() }}
+          {% else %}
+            unknown
+          {% endif %}
+
+      # ---- Child B: Latest transaction amount (GBP) ----
+      - name: "Child B Latest Transaction"
+        unit_of_measurement: "GBP"
+        state: >
+          {% set raw = state_attr('sensor.child_b_space','feedItems')
+                       if state_attr('sensor.child_b_space','feedItems') is not none
+                       else state_attr('sensor.child_b_space','transactions') %}
+          {% if raw and raw | length > 0 %}
+            {% set first = raw[0] %}
+            {% set minor = (first.amount.minorUnits
+                            if first.amount is defined and first.amount.minorUnits is defined
+                            else first.minorUnits
+                            if first.minorUnits is defined
+                            else 0) %}
+            {{ (minor | float / 100) | round(2) }}
+          {% else %}
+            0
+          {% endif %}
+
+      # ---- Child B: Summary text (merchant/reference) ----
+      - name: "Child B Latest Transaction Summary"
+        state: >
+          {% set raw = state_attr('sensor.child_b_space','feedItems')
+                       if state_attr('sensor.child_b_space','feedItems') is not none
+                       else state_attr('sensor.child_b_space','transactions') %}
+          {% if raw and raw | length > 0 %}
+            {% set first = raw[0] %}
+            {{ first.reference
+               if first.reference is defined
+               else first.counterPartyName
+               if first.counterPartyName is defined
+               else first.narrative
+               if first.narrative is defined
+               else "Latest transaction" }}
+          {% else %}
+            No recent transactions
+          {% endif %}
+
+      # ---- Child B: Timestamp (optional) ----
+      - name: "Child B Latest Transaction Time"
+        state: >
+          {% set raw = state_attr('sensor.child_b_space','feedItems')
+                       if state_attr('sensor.child_b_space','feedItems') is not none
+                       else state_attr('sensor.child_b_space','transactions') %}
+          {% if raw and raw | length > 0 %}
+            {% set first = raw[0] %}
+            {{ first.created
+               if first.created is defined
+               else first.transactionTime
+               if first.transactionTime is defined
+               else now().isoformat() }}
+          {% else %}
+            unknown
+          {% endif %}

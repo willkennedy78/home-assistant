@@ -1,0 +1,86 @@
+# ============================================================
+# Lovelace example — “small spend card” per child
+# Requires HACS → custom:button-card
+# Colour rules: < £5 = green, £5–£10 = amber, > £10 = red
+# ============================================================
+type: vertical-stack
+cards:
+  - type: custom:button-card
+    entity: sensor.child_a_latest_transaction
+    name: "Child A – Recent Spend"
+    show_state: true
+    show_label: true
+    label: >
+      [[[ return states['sensor.child_a_latest_transaction_summary']?.state || '—'; ]]]
+    styles:
+      card:
+        - height: 120px
+        - border-radius: 16px
+        - padding: 12px
+      name:
+        - font-size: 14px
+      state:
+        - font-size: 28px
+        - font-weight: 700
+      label:
+        - font-size: 12px
+        - opacity: 0.8
+    state:
+      - operator: template
+        value: >
+          [[[ return Number(entity.state) === 0; ]]]
+        color: grey
+      - operator: template
+        value: >
+          [[[ return Number(entity.state) > 0 && Number(entity.state) < 5; ]]]
+        color: green
+      - operator: template
+        value: >
+          [[[ return Number(entity.state) >= 5 && Number(entity.state) <= 10; ]]]
+        color: amber
+      - operator: template
+        value: >
+          [[[ return Number(entity.state) > 10; ]]]
+        color: red
+    tap_action:
+      action: more-info
+
+  - type: custom:button-card
+    entity: sensor.child_b_latest_transaction
+    name: "Child B – Recent Spend"
+    show_state: true
+    show_label: true
+    label: >
+      [[[ return states['sensor.child_b_latest_transaction_summary']?.state || '—'; ]]]
+    styles:
+      card:
+        - height: 120px
+        - border-radius: 16px
+        - padding: 12px
+      name:
+        - font-size: 14px
+      state:
+        - font-size: 28px
+        - font-weight: 700
+      label:
+        - font-size: 12px
+        - opacity: 0.8
+    state:
+      - operator: template
+        value: >
+          [[[ return Number(entity.state) === 0; ]]]
+        color: grey
+      - operator: template
+        value: >
+          [[[ return Number(entity.state) > 0 && Number(entity.state) < 5; ]]]
+        color: green
+      - operator: template
+        value: >
+          [[[ return Number(entity.state) >= 5 && Number(entity.state) <= 10; ]]]
+        color: amber
+      - operator: template
+        value: >
+          [[[ return Number(entity.state) > 10; ]]]
+        color: red
+    tap_action:
+      action: more-info
