@@ -1,0 +1,111 @@
+esphome:
+  name: cleverspa_adapter
+  friendly_name: CleverSpa Adapter
+
+esp32:
+  board: m5stack-atom
+  framework:
+    type: arduino
+
+logger:
+api:
+ota:
+  platform: esphome
+  password: "VFR$5tgb"
+
+wifi:
+  ssid: "NOTMYWIFI"
+  password: "NOTMYPASSWORD"
+
+  ap:
+    ssid: "CleverSpa Fallback"
+    password: "ALSONOTMYPASSWORD"
+
+# === SENSOR: Thermistor Tap ===
+sensor:
+  - platform: adc
+    pin: GPIO32
+    id: adc_therm
+    update_interval: 10s
+
+  - platform: resistance
+    sensor: adc_therm
+    id: thermistor_resistance
+    configuration: DOWNSTREAM
+    resistor: 220000 Ohm  # Bottom resistor in the divider
+    name: "Thermistor Resistance"
+
+  - platform: ntc
+    sensor: thermistor_resistance
+    calibration:
+      b_constant: 3950
+      reference_temperature: 25°C
+      reference_resistance: 10000 Ohm
+    name: "CleverSpa Water Temperature"
+output:
+  - platform: gpio
+    id: gpio_jets
+    pin:
+      number: GPIO23      
+      inverted: true
+
+  - platform: gpio
+    id: gpio_temp_down
+    pin:
+      number: GPIO19
+      inverted: true
+
+  - platform: gpio
+    id: gpio_heater
+    pin:
+      number: GPIO25
+      inverted: true
+  
+  - platform: gpio
+    id: gpio_temp_up
+    pin:
+      number: GPIO21
+      inverted: true
+  
+  - platform: gpio
+    id: gpio_temp_lock
+    pin:
+      number: GPIO22
+      inverted: true
+
+  - platform: gpio
+    id: gpio_filter
+    pin:
+      number: GPIO33
+      inverted: true
+
+button:
+  - platform: output
+    name: "Temp Up"
+    output: gpio_temp_up
+    duration: 200ms
+
+  - platform: output
+    name: "Temp Down"
+    output: gpio_temp_down
+    duration: 200ms
+
+  - platform: output
+    name: "Temp Set / Lock"
+    output: gpio_temp_lock
+    duration: 200ms
+
+  - platform: output
+    name: "Filter"
+    output: gpio_filter
+    duration: 200ms
+
+  - platform: output
+    name: "Inflate / Jets"
+    output: gpio_jets
+    duration: 200ms
+
+  - platform: output
+    name: "Heater"
+    output: gpio_heater
+    duration: 200ms
