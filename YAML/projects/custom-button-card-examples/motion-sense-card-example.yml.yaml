@@ -1,0 +1,300 @@
+# Custom Motion Sensor Cards - Will Osborne-Kennedy.  CTRL+ALT+DELusions / @willkennedy78
+# Use freely without attribution
+      - type: grid
+        cards:
+          - type: heading
+            heading_style: title
+icon: mdi:motion-sensor
+            heading: CCTV & Motion
+          - type: grid
+            columns: 2
+            square: false
+            cards:
+              - type: custom:button-card
+                entity: binary_sensor.porch_motion_sensor
+                name: Porch Motion Detected
+                layout: vertical
+                show_state: false
+                tap_action:
+                  action: more-info
+                state:
+                  - value: 'on'
+icon: mdi:motion-sensor
+                    color: red
+                    styles:
+                      card:
+                        - animation: pulse 1s infinite
+                  - value: 'off'
+icon: mdi:motion-sensor
+                    color: green
+                styles:
+                  card:
+                    - background-color: white
+                    - border: 2px solid lightgrey
+                    - border-radius: 12px
+                    - width: 240px
+                    - height: 140px
+                    - padding: 8px
+                    - display: flex
+                    - flex-direction: column
+                    - justify-content: space-between
+                    - align-items: center
+                    - box-sizing: border-box
+                    - position: relative
+                  name:
+                    - font-size: 15px
+                    - font-weight: bold
+                    - text-align: center
+                    - white-space: normal
+                    - line-height: 1.2
+                    - padding-bottom: 4px
+icon: mdi:motion-sensor
+                    - width: 64px
+                    - height: 64px
+                    - margin: 0 auto
+                extra_styles: |
+                  @keyframes pulse {
+                    0% { box-shadow: 0 0 0 0 rgba(255, 0, 0, 0.4); }
+                    70% { box-shadow: 0 0 0 10px rgba(255, 0, 0, 0); }
+                    100% { box-shadow: 0 0 0 0 rgba(255, 0, 0, 0); }
+                  }
+              - type: custom:button-card
+                entity: binary_sensor.ewelink_snzb_04_3
+                name: Cat Flap
+                layout: vertical
+                show_state: false
+                tap_action:
+                  action: more-info
+                state:
+                  - value: 'on'
+icon: mdi:motion-sensor
+                    color: red
+                    styles:
+                      card:
+                        - animation: pulse 1s infinite
+                  - value: 'off'
+icon: mdi:motion-sensor
+                    color: green
+                styles:
+                  card:
+                    - background-color: white
+                    - border: 2px solid lightgrey
+                    - border-radius: 12px
+                    - width: 240px
+                    - height: 140px
+                    - padding: 8px
+                    - display: flex
+                    - flex-direction: column
+                    - justify-content: space-between
+                    - align-items: center
+                    - box-sizing: border-box
+                    - position: relative
+                  name:
+                    - font-size: 15px
+                    - font-weight: bold
+                    - text-align: center
+                    - white-space: normal
+                    - line-height: 1.2
+                    - padding-bottom: 4px
+icon: mdi:motion-sensor
+                    - width: 64px
+                    - height: 64px
+                    - margin: 0 auto
+                  custom_fields:
+                    last_seen:
+                      - position: absolute
+                      - top: 50%
+                      - left: 50%
+                      - transform: translate(-50%, -50%)
+                      - background-color: rgba(255, 255, 255, 0.7)
+                      - padding: 4px 10px
+                      - border-radius: 10px
+                      - font-size: 14px
+                      - font-weight: bold
+                      - color: '#000'
+                      - z-index: 2
+                custom_fields:
+                  last_seen: >
+                    [[[ return new
+                    Date(entity.last_changed).toLocaleTimeString([], {hour:
+                    '2-digit', minute:'2-digit'}); ]]]
+              - type: custom:button-card
+                entity: binary_sensor.ewelink_snzb_04
+                name: Front Door
+                layout: vertical
+                show_state: false
+                tap_action:
+                  action: more-info
+                state:
+                  - value: 'on'
+icon: mdi:motion-sensor
+                    color: red
+                    styles:
+                      card:
+                        - animation: pulse 1s infinite
+                  - value: 'off'
+icon: mdi:motion-sensor
+                    color: green
+                styles:
+                  card:
+                    - background-color: white
+                    - border: 2px solid lightgrey
+                    - border-radius: 12px
+                    - width: 240px
+                    - height: 140px
+                    - padding: 8px
+                    - display: flex
+                    - flex-direction: column
+                    - justify-content: space-between
+                    - align-items: center
+                    - box-sizing: border-box
+                    - position: relative
+                  name:
+                    - font-size: 15px
+                    - font-weight: bold
+                    - text-align: center
+                    - white-space: normal
+                    - line-height: 1.2
+                    - padding-bottom: 4px
+icon: mdi:motion-sensor
+                    - width: 64px
+                    - height: 64px
+                    - margin: 0 auto
+                  custom_fields:
+                    last_seen:
+                      - position: absolute
+                      - top: 50%
+                      - left: 50%
+                      - transform: translate(-50%, -50%)
+                      - background-color: rgba(255, 255, 255, 0.7)
+                      - padding: 4px 10px
+                      - border-radius: 10px
+                      - font-size: 14px
+                      - font-weight: bold
+                      - color: '#000'
+                      - z-index: 2
+                custom_fields:
+                  last_seen: >
+                    [[[ return new
+                    Date(entity.last_changed).toLocaleTimeString([], {hour:
+                    '2-digit', minute:'2-digit'}); ]]]
+              - type: custom:button-card
+                entity: binary_sensor.ewelink_snzb_04_2
+                name: Kitchen Door
+                layout: vertical
+                show_state: false
+                tap_action:
+                  action: more-info
+                state:
+                  - value: 'on'
+icon: mdi:motion-sensor
+                    color: red
+                    styles:
+                      card:
+                        - animation: pulse 1s infinite
+                  - value: 'off'
+icon: mdi:motion-sensor
+                    color: green
+                styles:
+                  card:
+                    - background-color: white
+                    - border: 2px solid lightgrey
+                    - border-radius: 12px
+                    - width: 240px
+                    - height: 140px
+                    - padding: 8px
+                    - display: flex
+                    - flex-direction: column
+                    - justify-content: space-between
+                    - align-items: center
+                    - box-sizing: border-box
+                    - position: relative
+                  name:
+                    - font-size: 15px
+                    - font-weight: bold
+                    - text-align: center
+                    - white-space: normal
+                    - line-height: 1.2
+                    - padding-bottom: 4px
+icon: mdi:motion-sensor
+                    - width: 64px
+                    - height: 64px
+                    - margin: 0 auto
+                  custom_fields:
+                    last_seen:
+                      - position: absolute
+                      - top: 50%
+                      - left: 50%
+                      - transform: translate(-50%, -50%)
+                      - background-color: rgba(255, 255, 255, 0.7)
+                      - padding: 4px 10px
+                      - border-radius: 10px
+                      - font-size: 14px
+                      - font-weight: bold
+                      - color: '#000'
+                      - z-index: 2
+                custom_fields:
+                  last_seen: >
+                    [[[ return new
+                    Date(entity.last_changed).toLocaleTimeString([], {hour:
+                    '2-digit', minute:'2-digit'}); ]]]
+              - type: custom:button-card
+                entity: binary_sensor.downstairs_loo_motion_sensor_occupancy
+                name: Downstairs Loo
+                layout: vertical
+                show_state: false
+                tap_action:
+                  action: more-info
+                state:
+                  - value: 'on'
+icon: mdi:motion-sensor
+                    color: red
+                    styles:
+                      card:
+                        - animation: pulse 1s infinite
+                  - value: 'off'
+icon: mdi:motion-sensor
+                    color: green
+                styles:
+                  card:
+                    - background-color: white
+                    - border: 2px solid lightgrey
+                    - border-radius: 12px
+                    - width: 240px
+                    - height: 140px
+                    - padding: 8px
+                    - display: flex
+                    - flex-direction: column
+                    - justify-content: space-between
+                    - align-items: center
+                    - box-sizing: border-box
+                    - position: relative
+                  name:
+                    - font-size: 15px
+                    - font-weight: bold
+                    - text-align: center
+                    - white-space: normal
+                    - line-height: 1.2
+                    - padding-bottom: 4px
+icon: mdi:motion-sensor
+                    - width: 64px
+                    - height: 64px
+                    - margin: 0 auto
+                  custom_fields:
+                    last_seen:
+                      - position: absolute
+                      - top: 50%
+                      - left: 50%
+                      - transform: translate(-50%, -50%)
+                      - background-color: rgba(255, 255, 255, 0.7)
+                      - padding: 4px 10px
+                      - border-radius: 10px
+                      - font-size: 14px
+                      - font-weight: bold
+                      - color: '#000'
+                      - z-index: 2
+                custom_fields:
+                  last_seen: >
+                    [[[ return new
+                    Date(entity.last_changed).toLocaleTimeString([], {hour:
+                    '2-digit', minute:'2-digit'}); ]]]

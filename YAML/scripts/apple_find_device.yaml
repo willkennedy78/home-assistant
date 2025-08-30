@@ -1,0 +1,18 @@
+# Enhanced FindMy Script for iCloud integration - Will Osborne-Kennedy.  CTRL+ALT+DELusions / @willkennedy78
+# Use freely without attribution
+
+find_device:
+  alias: "Find a Device"
+  description: "Triggers iCloud 'play sound' on target device"
+  fields:
+    account:
+      description: "iCloud account name"
+      example: "[REDACTED_EMAIL]"
+    device_name:
+      description: "Device name as registered in iCloud"
+      example: "Will’s iPhone"
+  sequence:
+    - service: icloud.play_sound
+      data:
+        account: "{{ account }}"
+        device_name: "{{ device_name }}"

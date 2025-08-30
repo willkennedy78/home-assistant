@@ -1,0 +1,749 @@
+# Project Casa Dashboard - Will Osborne-Kennedy.  CTRL+ALT+DELusions / @willkennedy78
+# Use freely without attribution
+views:
+  - title: Security
+    header:
+      card:
+        type: markdown
+        text_only: true
+        content: |-
+          # 🐸 Hello {{ user }} 🐸
+          Welcome to the Project Casa home automation control panel
+    path: security
+    icon: mdi:shield-lock-outline
+    type: sections
+    cards: []
+    background:
+      opacity: 50
+      alignment: center
+      size: cover
+      repeat: no-repeat
+      attachment: fixed
+      image: /api/image/serve/fee02c4076bc7ba0743361a214cce2ab/original
+      layout: responsive
+      badges_position: bottom
+      badges_wrap: wrap
+      max_columns: 5
+    badges:
+      - type: entity
+        show_name: true
+        show_state: true
+        show_icon: true
+        entity: alarm_control_panel.blink_casa
+        show_entity_picture: false
+    sections:
+      - type: grid
+        columns: 3
+        square: false
+        cards:
+          - type: heading
+            heading: CCTV
+            heading_style: subtitle
+            icon: mdi:cctv
+          - show_state: true
+            show_name: true
+            camera_view: auto
+            fit_mode: cover
+            type: picture-entity
+            entity: camera.hikvision_nvr_profilename021
+            name: Pool Area
+            tap_action:
+              action: more-info
+          - show_state: true
+            show_name: true
+            camera_view: auto
+            fit_mode: cover
+            type: picture-entity
+            name: Pergola
+            tap_action:
+              action: more-info
+            entity: camera.hikvision_nvr_profilename025
+          - show_state: true
+            show_name: true
+            camera_view: auto
+            fit_mode: cover
+            type: picture-entity
+            name: Front - Road West
+            tap_action:
+              action: more-info
+            entity: camera.hikvision_nvr_profilename024
+          - show_state: true
+            show_name: true
+            camera_view: auto
+            fit_mode: cover
+            type: picture-entity
+            entity: camera.hikvision_nvr_profilename026
+            name: Front - Road East
+            tap_action:
+              action: more-info
+          - show_state: true
+            show_name: true
+            camera_view: auto
+            fit_mode: cover
+            type: picture-entity
+            name: Side - Calle 
+            tap_action:
+              action: more-info
+            entity: camera.hikvision_nvr_profilename022
+          - show_state: true
+            show_name: true
+            camera_view: auto
+            fit_mode: cover
+            type: picture-entity
+            entity: camera.hikvision_nvr_profilename027
+            name: Courtyard Gate
+            tap_action:
+              action: more-info
+          - show_state: true
+            show_name: true
+            camera_view: auto
+            fit_mode: cover
+            type: picture-entity
+            entity: camera.front_door
+            name: Blink - Front Door
+            tap_action:
+              action: more-info
+          - show_state: true
+            show_name: true
+            camera_view: auto
+            fit_mode: cover
+            type: picture-entity
+            name: Blink - Back Door Patio
+            tap_action:
+              action: more-info
+            entity: camera.back_door_patio
+          - show_state: true
+            show_name: true
+            camera_view: auto
+            fit_mode: cover
+            type: picture-entity
+            name: Blink - Pergola 1
+            tap_action:
+              action: more-info
+            entity: camera.pergola_1
+          - show_state: true
+            show_name: true
+            camera_view: auto
+            fit_mode: cover
+            type: picture-entity
+            name: Blink - Pergola 2
+            tap_action:
+              action: more-info
+            entity: camera.pergola_2
+          - show_state: true
+            show_name: true
+            camera_view: auto
+            fit_mode: cover
+            type: picture-entity
+            name: Blink - Side Gate
+            tap_action:
+              action: more-info
+            entity: camera.side_gate
+          - show_state: true
+            show_name: true
+            camera_view: auto
+            fit_mode: cover
+            type: picture-entity
+            name: Blink - Store
+            tap_action:
+              action: more-info
+            entity: camera.store_cupboard
+          - show_state: true
+            show_name: true
+            camera_view: auto
+            fit_mode: cover
+            type: picture-entity
+            name: Blink - Hall
+            tap_action:
+              action: more-info
+            entity: camera.hall
+          - show_state: true
+            show_name: true
+            camera_view: auto
+            fit_mode: cover
+            type: picture-entity
+            name: Ring - Front Door
+            tap_action:
+              action: more-info
+            entity: camera.front_door_live_view
+        column_span: 2
+      - type: grid
+        cards:
+          - type: heading
+            heading: Battery Stats
+            heading_style: subtitle
+            icon: mdi:battery-alert
+            grid_options:
+              columns: 12
+              rows: auto
+          - show_name: true
+            show_icon: true
+            show_state: true
+            type: glance
+            entities:
+              - entity: binary_sensor.back_door_patio_battery
+                name: Blink Courtyard
+              - entity: sensor.front_door_battery
+                name: Blink Front Door
+              - entity: binary_sensor.pergola_1_battery
+                name: Blink Pergola 1
+              - entity: binary_sensor.pergola_2_battery
+                name: Blink Pergola 2
+              - entity: binary_sensor.side_gate_battery
+                name: Blink Side Gate
+              - entity: binary_sensor.store_cupboard_battery
+                name: Blink Store Cupboard
+              - entity: sensor.ewelink_snzb_04_battery
+                name: Fridge Thermostat
+              - entity: binary_sensor.hall_battery
+                name: Blink Hall
+              - entity: sensor.internet_rack_thermometer_battery
+                name: Internet Rack Thermometer
+              - entity: sensor.lounge_switch_battery
+                name: Hue Dimmer Lounge
+              - entity: sensor.kitchen_switch_battery
+                name: Hue Dimmer Kitchen
+              - entity: sensor.fridge_temperature_sensor_battery
+            title: Battery Stats
+            grid_options:
+              columns: full
+            state_color: true
+            columns: 2
+        column_span: 1
+      - type: grid
+        columns: 2
+        square: false
+        cards:
+          - type: heading
+            icon: mdi:leak
+            heading_style: subtitle
+            heading: Sensors
+          - type: vertical-stack
+            cards:
+            - type: custom:button-card
+            entity: binary_sensor.ewelink_snzb_04
+            name: Patio Doors
+            layout: vertical
+            show_state: true
+            tap_action:
+              action: more-info
+            state:
+              - value: 'on'
+                icon: mdi:door-open
+                color: red
+                styles:
+                  card:
+                    - animation: pulse 1s infinite
+              - value: 'off'
+                icon: mdi:door-closed
+                color: green
+            styles:
+              card:
+                - background-color: var(--card-background-color)
+                - border: 2px solid lightgrey
+                - border-radius: 12px
+                - position: absolute 
+                - top: 50% 
+                - left: 50% 
+                - transform: translate(-50%, -50%) 
+                - background-color: rgba(255, 255, 255, 0.7) 
+                - padding: 4px 10px 
+                - border-radius: 10px 
+                -font-size: 14px 
+                - font-weight: bold -
+                - color: "#000" 
+                - z-index: 2
+                - width: 200px
+                - height: 100px
+                - padding: 4px
+                - display: flex
+                - flex-direction: column
+                - justify-content: space-between
+                - align-items: center
+                - box-sizing: border-box
+                - position: relative
+              name:
+                - font-size: 15px
+                - font-weight: bold
+                - text-align: center
+                - white-space: normal
+                - line-height: 1.2
+                - padding-bottom: 4px
+              icon:
+                - width: 48px
+                - height: 48px
+                - margin: 0 auto
+              custom_fields:
+                last_seen: >
+                  [[[ return new
+                  Date(entity.last_changed).toLocaleTimeString([], {hour:
+                  '2-digit', minute:'2-digit'}); ]]]                                      
+              - type: custom:button-card
+                entity: binary_sensor.ring_front_door_ding
+                name: Ring Alert
+                show_entity_picture: false
+                show_state: true
+                icon: mdi:bell-ring
+                tap_action:
+                  action: more-info
+                styles:
+                  card:
+                    - background-color: white
+                    - border: 2px solid lightgrey
+                    - border-radius: 12px
+                    - width: 200px
+                    - height: 100px
+                    - padding: 4px
+                    - display: flex
+                    - flex-direction: column
+                    - justify-content: space-between
+                    - align-items: center
+                    - box-sizing: border-box
+                    - position: relative
+                    - font-size: 15px
+                    - font-weight: bold
+                    - text-align: center
+                    - white-space: normal
+                    - line-height: 1.2
+                    - padding-bottom: 4px
+                  icon:
+                    - width: 48px
+                    - height: 48px
+                    - margin: 0 auto
+            grid_options:
+              columns: 6
+              rows: 1
+  - title: Inside
+    icon: mdi:sofa
+    type: sections
+    cards: []
+    background:
+      opacity: 50
+      alignment: center
+      size: cover
+      repeat: no-repeat
+      attachment: fixed
+      image: /api/image/serve/REDACTED/original
+    sections:
+      - type: grid
+        cards:
+          - type: grid
+            cards:
+              - type: light
+                entity: light.lounge_lamp_stand
+                icon: mdi:floor-lamp-outline
+              - type: light
+                entity: light.lounge_sideboard_lamp
+                icon: mdi:lamp-outline
+              - type: light
+                entity: light.dimmable_light_1
+                icon: mdi:lamp-outline
+              - type: light
+                entity: light.kitchen_table
+                icon: mdi:ceiling-light
+              - type: light
+                entity: light.hue_white_lamp_1
+                icon: mdi:desk-lamp
+            title: Lighting
+          - type: heading
+            heading_style: title
+            heading: Spain PVPC Electricity Price
+            icon: mdi:meter-electric
+          - type: custom:pvpc-hourly-pricing-card
+            entity: sensor.esios_pvpc
+      - type: grid
+        cards:
+          - square: true
+            type: grid
+            cards:
+              - type: gauge
+                entity: sensor.fridge_temperature_sensor_temperature
+                needle: true
+                severity:
+                  green: 10
+                  yellow: 13
+                  red: 15
+              - type: gauge
+                entity: sensor.internet_rack_thermometer_temperature
+                needle: true
+                severity:
+                  green: 0
+                  yellow: 35
+                  red: 45
+              - type: gauge
+                entity: sensor.blink_hall_temperature
+                needle: true
+                severity:
+                  green: 0
+                  yellow: 35
+                  red: 45
+              - type: gauge
+                entity: sensor.blink_store_cupboard_temperature
+                needle: true
+                severity:
+                  green: 0
+                  yellow: 35
+                  red: 45
+              - type: gauge
+                entity: sensor.blink_back_door_patio_temperature
+                needle: true
+                severity:
+                  green: 0
+                  yellow: 35
+                  red: 45
+              - type: gauge
+                entity: sensor.blink_front_door_temperature
+                needle: true
+                severity:
+                  green: 0
+                  yellow: 35
+                  red: 45
+              - type: gauge
+                entity: sensor.blink_pergola_1_temperature
+                needle: true
+                severity:
+                  green: 0
+                  yellow: 35
+                  red: 45
+              - type: gauge
+                entity: sensor.blink_side_gate_temperature
+                needle: true
+                severity:
+                  green: 0
+                  yellow: 35
+                  red: 45
+            title: Sensors
+            columns: 2
+      - type: grid
+        cards:
+          - type: heading
+            heading: SpeedTest
+          - type: tile
+            entity: sensor.speedtest_download
+          - type: tile
+            entity: sensor.speedtest_ping
+            features_position: bottom
+            vertical: false
+            grid_options:
+              columns: 6
+              rows: 1
+          - type: tile
+            entity: sensor.speedtest_upload
+    header:
+      layout: responsive
+      badges_position: bottom
+      badges_wrap: wrap
+      card:
+        type: markdown
+        text_only: true
+        content: |2-
+           # 🐸 Hello {{ user }} 🐸
+          Welcome to the Project Casa home automation control panel
+    max_columns: 3
+    top_margin: false
+    dense_section_placement: false
+  - title: Pool
+    icon: mdi:pool
+    layout:
+      type: custom:grid-layout
+      layout:
+        grid-template-columns: 1fr 1fr
+        grid-template-rows: auto
+        grid-auto-flow: row
+    background:
+      opacity: 50
+      alignment: center
+      size: cover
+      repeat: no-repeat
+      attachment: fixed
+      image: /api/image/serve/REDACTED/original
+    cards: []
+    type: sections
+    sections:
+      - type: grid
+        cards:
+          - type: heading
+            heading: null
+          - type: vertical-stack
+            cards:
+              - type: entities
+                title: Pool Control Status
+                entities:
+                  - entity: sensor.tasmota_neopool_light
+                    name: Light
+                  - entity: sensor.tasmota_neopool_filtration_state
+                    name: Filtration
+                  - type: custom:template-entity-row
+                    entity: sensor.tasmota_neopool_filtration_mode
+                    name: Filtration Mode
+                    state: >
+                      {% set mode =
+                      states('sensor.tasmota_neopool_filtration_mode') %} {% if
+                      mode == '1' %}
+                        Manual
+                      {% elif mode == '2' %}
+                        Timed
+                      {% else %}
+                        Unknown ({{ mode }})
+                      {% endif %}
+                  - entity: sensor.tasmota_neopool_hydrolysis_state
+                    name: Hydrolysis
+                  - entity: sensor.tasmota_neopool_hydrolysis_boost
+                    name: Boost Active
+                  - entity: sensor.pool_controls_neopool_ph_data
+                    name: pH Level
+                  - type: custom:template-entity-row
+                    entity: binary_sensor.ph_compliance
+                    name: pH Compliance
+                    icon: mdi:ph
+                    state: |
+                      {% if is_state('binary_sensor.ph_compliance', 'on') %}
+                        OK
+                      {% else %}
+                        Not OK
+                      {% endif %}
+                    style: |
+                      :host {
+                        --paper-item-icon-color:
+                          {% if is_state('binary_sensor.ph_compliance', 'on') %} green
+                          {% else %} red
+                          {% endif %};
+                        color:
+                          {% if is_state('binary_sensor.ph_compliance', 'on') %} green
+                          {% else %} red
+                          {% endif %};
+                      }
+                  - entity: sensor.tasmota_neopool_connection_time
+                    name: Last NeoPool Sync
+                  - entity: sensor.tasmota_neopool_relay_acid
+                  - entity: sensor.tasmota_neopool_hydrolysis_data
+              - type: history-graph
+                title: pH Graph
+                entities:
+                  - entity: sensor.pool_controls_neopool_ph_data
+                hours_to_show: 48
+                logarithmic_scale: false
+            view_layout:
+              grid-area: left
+      - type: grid
+        cards:
+          - type: heading
+            heading: null
+          - type: vertical-stack
+            cards:
+              - type: grid
+                columns: 2
+                square: false
+                cards:
+                  - type: custom:button-card
+                    name: Pool Light
+                    entity: sensor.tasmota_neopool_light
+                    icon: mdi:lightbulb
+                    tap_action:
+                      action: call-service
+                      service: script.pool_light_toggle
+                    state:
+                      - value: '1'
+                        color: green
+                      - value: '0'
+                        color: red
+                    show_state: false
+                    show_icon: true
+                    show_last_changed: true
+                  - type: custom:button-card
+                    name: Filtration
+                    entity: sensor.tasmota_neopool_filtration_state
+                    icon: mdi:filter-check-outline
+                    tap_action:
+                      action: call-service
+                      service: script.pool_filtration_toggle
+                    state:
+                      - value: '1'
+                        color: green
+                      - value: '0'
+                        color: red
+                    show_state: false
+                    show_icon: true
+                    show_last_changed: true
+                  - type: custom:button-card
+                    name: Boost
+                    entity: sensor.tasmota_neopool_hydrolysis_boost
+                    icon: mdi:flash
+                    tap_action:
+                      action: call-service
+                      service: script.pool_hydrolysis_boost_toggle
+                    state:
+                      - value: '1'
+                        color: green
+                      - value: '0'
+                        color: red
+                    show_state: false
+                    show_icon: true
+                    show_last_changed: true
+                  - type: custom:button-card
+                    entity: switch.swimming_pool_mcb_switch
+                    name: Heat Pump MCB
+                    icon: mdi:heat-pump-outline
+                    tap_action:
+                      action: toggle
+                    state:
+                      - value: 'on'
+                        color: green
+                      - value: 'off'
+                        color: red
+                    show_state: false
+                    show_icon: true
+                    show_last_changed: true
+                  - type: custom:button-card
+                    entity: switch.wifi_din_rail_switch_with_metering_2_switch
+                    name: Salt Chlorinator MCB
+                    icon: mdi:ph
+                    tap_action:
+                      action: toggle
+                    state:
+                      - value: 'on'
+                        color: green
+                      - value: 'off'
+                        color: red
+                    show_state: false
+                    show_icon: true
+                    show_last_changed: true
+                  - type: custom:button-card
+                    name: Filtration Mode
+                    entity: sensor.tasmota_neopool_filtration_mode
+                    icon: mdi:filter-cog
+                    tap_action:
+                      action: call-service
+                      service: script.pool_filtration_mode_toggle
+                    state:
+                      - value: '1'
+                        color: green
+                        label: Manual
+                      - value: '2'
+                        color: blue
+                        label: Timed
+                    show_state: true
+                    show_icon: true
+                    show_last_changed: false
+                    state_display: |
+                      [[[ 
+                        if (entity.state === '1') return 'Manual';
+                        if (entity.state === '2') return 'Timed';
+                        return `Unknown (${entity.state})`;
+                      ]]]
+                  - type: gauge
+                    entity: sensor.ewelink_snzb_02_temperature_2
+                    needle: true
+                    severity:
+                      green: 0
+                      yellow: 35
+                      red: 45
+                  - type: gauge
+                    entity: sensor.ewelink_snzb_02_humidity_2
+                    needle: true
+              - type: entities
+                title: ⚠️ pH Alarm Status
+                show_header_toggle: false
+                card_mod:
+                  style: |
+                    ha-card {
+                      border: 2px solid {% if states('sensor.pool_controls_neopool_ph_state') != '0' %}red{% else %}green{% endif %};
+                      background-color: {% if states('sensor.pool_controls_neopool_ph_state') != '0' %}#ffebee{% else %}#e8f5e9{% endif %};
+                    }
+                entities:
+                  - type: custom:template-entity-row
+                    entity: sensor.pool_controls_neopool_ph_state
+                    name: pH Alarm
+                    icon: mdi:alert
+                    state: >
+                      {% set state =
+                      states('sensor.pool_controls_neopool_ph_state') | int %}
+                      {% if state == 0 %}
+                        No Alarm
+                      {% elif state == 1 %}
+                        pH Too High
+                      {% elif state == 2 %}
+                        pH Too Low
+                      {% elif state == 3 %}
+                        Pump Runtime Exceeded
+                      {% elif state == 4 %}
+                        pH Slightly High
+                      {% elif state == 5 %}
+                        pH Slightly Low
+                      {% elif state == 6 %}
+                        Dosing Tank Level Low
+                      {% else %}
+                        Unknown Alarm Code
+                      {% endif %}
+                    style: |
+                      :host {
+                        --paper-item-icon-color:
+                          {% if is_state('sensor.pool_controls_neopool_ph_state', '0') %} green
+                          {% else %} red
+                          {% endif %};
+                      }
+            view_layout:
+              grid-area: right
+    header:
+      card:
+        type: markdown
+        content: |2-
+           # 🐸 Hello {{ user }} 🐸
+          Welcome to the Project Casa home automation control panel
+        text_only: true
+  - title: Garden
+    header:
+      card:
+        type: markdown
+        content: |-
+          # 🐸 Hello {{ user }} 🐸
+          Welcome to the Project Casa home automation control panel
+        text_only: true
+    type: sections
+    cards: []
+    icon: mdi:flower-outline
+    background:
+      opacity: 60
+      alignment: center
+      size: cover
+      repeat: no-repeat
+      attachment: fixed
+      image: /api/image/serve/REDACTED/original
+    sections:
+      - type: grid
+        cards:
+          - type: logbook
+            target:
+              entity_id: []
+              device_id: REDACTED
+            title: Watering History
+            hours_to_show: 96
+      - type: grid
+        cards:
+          - show_name: true
+            show_icon: true
+            show_state: true
+            type: glance
+            entities:
+              - entity: sensor.smart_outdoor_timer_casa_state
+                name: Timer State
+              - entity: >-
+                  switch.smart_outdoor_timer_casa_casa_watering_summer_program
+                name: Summer Program
+              - entity: switch.smart_outdoor_timer_casa_winter_watering_program
+                name: Winter Program
+              - entity: switch.zone_swimming_pool_zone
+                name: Pool Zone
+              - entity: switch.zone_3_left_shrubs_zone
+                name: Left Shrubs Zone
+              - entity: switch.zone_4_front_garden_zone
+                name: Front Garden
+              - entity: switch.zone_pots_etc_zone
+                name: Pots etc..
+            state_color: true
+            title: Watering Status
+            columns: 3
+            grid_options:
+              columns: 12
+              rows: 7
+        column_span: 1

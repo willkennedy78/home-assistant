@@ -1,0 +1,41 @@
+# Parcel Delivery Binary Sensor with Alexa Devices / Mobile Alert - Will Osborne-Kennedy.  CTRL+ALT+DELusions / @willkennedy78
+# Use freely without attribution
+
+- id: '1751004357596'
+  alias: Parcel Delivery
+  description: ''
+  triggers:
+  - type: vibration
+    device_id: aafa2c4fcb9bf9202e884237a25e82da
+    entity_id: 97d950a167d1830954238321c4c46ed8
+    domain: binary_sensor
+    trigger: device
+    for:
+      hours: 0
+      minutes: 0
+      seconds: 2
+  conditions:
+  - condition: time
+    after: 07:30:00
+    before: '21:00:00'
+    weekday:
+    - mon
+    - tue
+    - wed
+    - thu
+    - fri
+    - sat
+    - sun
+  actions:
+  - action: notify.send_message
+    metadata: {}
+    data:
+      message: A Parcel has been dropped in the box
+    target:
+      device_id: 3cf298d3521c108f41a484c4b7ea6ab9
+  - device_id: d4a373716ddc4467210e04275cbe9130
+    domain: mobile_app
+    type: notify
+    message: A parcel has been dropped in the box
+    title: Parcel Delivery
+  mode: single

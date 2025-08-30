@@ -1,0 +1,64 @@
+# Parcel Box Animated Button Card - Will Osborne-Kennedy.  CTRL+ALT+DELusions / @willkennedy78
+# Use freely without attribution
+- type: custom:button-card
+  entity: binary_sensor.parcel_box_tilt_sensor
+  name: Parcel Box
+  layout: vertical
+  show_state: false
+  tap_action:
+    action: more-info
+  state:
+    - value: 'on'
+      icon: mdi:package-variant
+      color: red
+      styles:
+        card:
+          - animation: pulse 1s infinite
+    - value: 'off'
+      icon: mdi:package-variant-closed
+      color: green
+  styles:
+    card:
+      - background-color: white
+      - border: 2px solid lightgrey
+      - border-radius: 12px
+      - width: 240px
+      - height: 140px
+      - padding: 8px
+      - display: flex
+      - flex-direction: column
+      - justify-content: space-between
+      - align-items: center
+      - box-sizing: border-box
+      - position: relative
+    name:
+      - font-size: 15px
+      - font-weight: bold
+      - text-align: center
+      - white-space: normal
+      - line-height: 1.2
+      - padding-bottom: 4px
+    icon:
+      - width: 64px
+      - height: 64px
+      - margin: 0 auto
+    custom_fields:
+      last_seen:
+        - position: absolute
+        - top: 50%
+        - left: 50%
+        - transform: translate(-50%, -50%)
+        - background-color: rgba(255, 255, 255, 0.7)
+        - border-radius: 10px
+        - font-size: 14px
+        - font-weight: bold
+        - color: '#000'
+        - z-index: 2
+  custom_fields:
+    last_seen: |
+      [[[ 
+        if (!entity || !entity.last_changed) return "—"; 
+        const d = new Date(entity.last_changed);
+        if (isNaN(d)) return "Invalid"; 
+        return `${d.getHours().toString().padStart(2,'0')}:${d.getMinutes().toString().padStart(2,'0')}`; 
+      ]]]

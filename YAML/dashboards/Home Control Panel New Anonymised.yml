@@ -1,0 +1,1452 @@
+views:
+  - type: sections
+    max_columns: 2
+    title: Power & Energy
+    path: power-energy
+    icon: mdi:lightning-bolt
+    sections:
+      - type: grid
+        cards:
+          - type: heading
+            heading_style: title
+            heading: Energy Cost
+            icon: mdi:gas-burner
+          - chart_type: bar
+            period: day
+            type: statistics-graph
+            entities:
+              - sensor.dcc_sourced_smart_gas_meter_cost_today_2
+              - sensor.dcc_sourced_smart_electricity_meter_cost_today_2
+            stat_types:
+              - state
+            logarithmic_scale: false
+            title: Energy Cost
+            days_to_show: 5
+          - show_name: true
+            show_icon: true
+            show_state: true
+            type: glance
+            entities:
+              - entity: sensor.dcc_sourced_smart_electricity_meter_cost_today_2
+              - entity: sensor.dcc_sourced_smart_gas_meter_cost_today_2
+            state_color: true
+            title: Today's Energy Cost
+      - type: grid
+        cards:
+          - type: heading
+            heading_style: title
+            heading: Power Stats
+            icon: mdi:power-plug-battery
+          - show_name: true
+            show_icon: true
+            show_state: true
+            type: glance
+            entities:
+              - entity: sensor.ups_status
+              - entity: sensor.ups_load
+              - entity: sensor.ups_battery_charge
+            title: UPS Status
+            state_color: true
+          - type: heading
+            icon: mdi:water-boiler-auto
+            heading_style: title
+            heading: Boiler
+          - type: tile
+            entity: sensor.e3_vitodens_100_bhc_0421_heating_gas_consumption_today
+          - type: tile
+            entity: climate.e3_vitodens_100_bhc_0421_heating
+          - type: tile
+            entity: binary_sensor.e3_vitodens_100_bhc_0421_frost_protection
+          - type: tile
+            entity: water_heater.e3_vitodens_100_bhc_0421_domestic_hot_water
+          - type: tile
+            entity: number.e3_vitodens_100_bhc_0421_dhw_temperature
+          - type: tile
+            entity: sensor.e3_vitodens_100_bhc_0421_dhw_storage_temperature
+          - type: tile
+            entity: binary_sensor.e3_vitodens_100_bhc_0421_dhw_pump
+          - type: tile
+            entity: sensor.e3_vitodens_100_bhc_0421_dhw_gas_consumption_today
+          - type: tile
+            entity: sensor.e3_vitodens_100_bhc_0421_dhw_electricity_consumption_today
+          - type: tile
+            entity: binary_sensor.e3_vitodens_100_bhc_0421_dhw_circulation_pump
+          - type: tile
+            entity: sensor.e3_vitodens_100_bhc_0421_burner_starts
+          - type: tile
+            entity: sensor.e3_vitodens_100_bhc_0421_burner_modulation
+          - type: tile
+            entity: sensor.e3_vitodens_100_bhc_0421_burner_hours
+          - type: tile
+            entity: binary_sensor.e3_vitodens_100_bhc_0421_burner
+          - type: tile
+            entity: sensor.e3_vitodens_100_bhc_0421_boiler_supply_temperature
+          - type: tile
+            entity: >-
+              sensor.e3_vitodens_100_bhc_0421_heating_electricity_consumption_today
+          - type: tile
+            entity: number.e3_vitodens_100_bhc_0421_normal_temperature
+      - type: grid
+        cards:
+          - type: heading
+            heading: New section
+            heading_style: title
+    header:
+      card:
+        type: markdown
+        content: |-
+          # Hello {{ user }}
+          Home Power & Energy
+      layout: responsive
+      badges_position: bottom
+      badges_wrap: wrap
+    background:
+      opacity: 60
+      alignment: center
+      size: cover
+      repeat: no-repeat
+      attachment: fixed
+      image: /api/image/serve/9c78031ca8685c8c017ad25b58138d7f/original
+    cards: []
+  - type: sections
+    max_columns: 4
+    title: Lighting
+    path: lighting
+    icon: mdi:lamps
+    sections:
+      - type: grid
+        cards:
+          - type: heading
+            heading_style: title
+            heading: Lighting Control
+            icon: mdi:ceiling-light-multiple
+            grid_options:
+              columns: 9
+              rows: 1
+          - square: false
+            type: grid
+            cards:
+              - type: light
+                entity: light.lounge
+                name: Lounge Lights (all)
+                icon: mdi:lamps
+              - show_name: true
+                show_icon: true
+                type: button
+                entity: light.orangery
+                name: Orangery Lights
+                icon: mdi:ceiling-light-multiple
+                show_state: true
+              - type: light
+                entity: light.playroom_front_lamp
+                name: Playroom Front Lamp
+                icon: mdi:floor-lamp-outline
+              - type: light
+                entity: light.playroom_rear_lamp
+                name: Playroom Rear Lamp
+                icon: mdi:floor-lamp-outline
+              - type: light
+                entity: light.bedroom
+                name: Master Bedroom Lamps
+                icon: mdi:lamps
+              - type: light
+                entity: light.bulb_2
+                name: Child B's Light
+                icon: mdi:ceiling-light
+              - type: light
+                entity: light.tradfri_bulb
+                name: Office Reading Lamp
+                icon: mdi:spotlight-beam
+              - type: light
+                entity: light.office
+                name: Office Overhead
+                icon: mdi:ceiling-light
+              - type: light
+                entity: light.Child As_light
+                name: Child A's Overhead Light
+                icon: mdi:ceiling-light
+              - type: light
+                entity: light.Child As_leds
+                name: Child A's LEDs
+                icon: mdi:led-strip-variant
+              - show_name: true
+                show_icon: true
+                type: button
+                entity: switch.toucan_lamp_socket
+                show_state: true
+                name: Toucan Lamp
+                icon: mdi:bird
+              - show_name: true
+                show_icon: true
+                type: button
+                entity: light.office_overhead
+                name: Downstairs Loo
+                show_state: true
+              - type: light
+                entity: light.kids_bathroom
+                name: Kids Bathroom
+                icon: mdi:bathtub
+              - type: light
+                entity: light.Child As_wardrobe
+            grid_options:
+              columns: 12
+              rows: 2
+        column_span: 1
+      - type: grid
+        cards:
+          - type: heading
+            heading: New section
+    column_span: 1
+    background:
+      opacity: 70
+      alignment: center
+      size: cover
+      repeat: no-repeat
+      attachment: fixed
+      image: /api/image/serve/487fe645c50cfcdd406ed674f265918b/original
+    cards: []
+    header:
+      layout: responsive
+      badges_position: bottom
+      badges_wrap: wrap
+      card:
+        type: markdown
+        content: |-
+          # Hello {{ user }}
+          Welcome to the Home Control Panel
+          Lighting Page
+        title: Home Control Panel
+    dense_section_placement: true
+  - title: Home
+    header:
+      card:
+        type: markdown
+        content: |
+          # Hello {{ user }}
+        title: Home Control Panel
+      layout: responsive
+      badges_position: bottom
+      badges_wrap: wrap
+    sections:
+      - type: grid
+        cards:
+          - type: gauge
+            entity: sensor.bathroom_hygrometer_humidity
+            needle: true
+            severity:
+              green: 0
+              yellow: 50
+              red: 75
+            grid_options:
+              columns: 6
+              rows: auto
+          - type: gauge
+            needle: true
+            grid_options:
+              columns: 6
+              rows: auto
+            entity: sensor.bathroom_hygrometer_temperature
+          - type: gauge
+            entity: sensor.master_bedroom_hygrometer_humidity
+            needle: true
+            severity:
+              green: 0
+              yellow: 50
+              red: 75
+            grid_options:
+              columns: 6
+              rows: auto
+          - type: gauge
+            entity: sensor.master_bedroom_hygrometer_temperature
+            needle: true
+            grid_options:
+              columns: 6
+              rows: auto
+          - type: gauge
+            entity: sensor.kitchen_hygrometer_humidity
+            needle: true
+            severity:
+              green: 0
+              yellow: 50
+              red: 75
+            grid_options:
+              columns: 6
+              rows: auto
+          - type: gauge
+            entity: sensor.kitchen_hygrometer_temperature
+            needle: true
+            grid_options:
+              columns: 6
+              rows: auto
+          - type: gauge
+            entity: sensor.playroom_hygrometer_humidity
+            needle: true
+            severity:
+              green: 0
+              yellow: 50
+              red: 75
+            grid_options:
+              columns: 6
+              rows: auto
+          - type: gauge
+            entity: sensor.playroom_hygrometer_temperature
+            needle: true
+            grid_options:
+              columns: 6
+              rows: auto
+          - type: gauge
+            entity: sensor.tze200_vs0skpuc_ts0601_humidity
+            needle: true
+            severity:
+              green: 0
+              yellow: 50
+              red: 75
+            grid_options:
+              columns: 6
+              rows: auto
+          - type: gauge
+            entity: sensor.tze200_vs0skpuc_ts0601_temperature
+            needle: true
+            grid_options:
+              columns: 6
+              rows: auto
+          - type: gauge
+            entity: sensor.playroom_humidity_sensor_humidity
+            needle: true
+            severity:
+              green: 0
+              yellow: 50
+              red: 75
+            grid_options:
+              columns: 6
+              rows: auto
+          - type: gauge
+            entity: sensor.playroom_humidity_sensor_temperature
+            needle: true
+            grid_options:
+              columns: 6
+              rows: auto
+          - type: gauge
+            entity: sensor.ewelink_snzb_02_humidity
+            needle: true
+            severity:
+              green: 0
+              yellow: 50
+              red: 75
+            grid_options:
+              columns: 6
+              rows: auto
+          - type: gauge
+            entity: sensor.ewelink_snzb_02_temperature
+            needle: true
+            grid_options:
+              columns: 6
+              rows: auto
+            severity:
+              green: 20
+              yellow: 32
+              red: 42
+      - type: grid
+        columns: 1
+        square: false
+        gap: 3px
+        style:
+          .: |
+            ha-card {
+              max-width: calc(100% - 20px);
+              margin: 0 auto;
+            }
+        cards:
+          - type: heading
+            icon: mdi:devices
+            heading_style: title
+            heading: Devices
+        column_span: 1
+      - type: grid
+        cards: []
+        column_span: 2
+      - type: grid
+        cards:
+          - type: heading
+            heading_style: title
+            heading: Energy
+            icon: mdi:lightning-bolt
+      - type: grid
+        cards: []
+    cards: []
+    background:
+      opacity: 47
+      alignment: center
+      size: cover
+      repeat: no-repeat
+      attachment: fixed
+      image: /api/image/serve/22bcceaa1be9dfc6687b8b53a0d5805a/original
+    type: sections
+    max_columns: 4
+    dense_section_placement: true
+    top_margin: false
+  - type: sections
+    max_columns: 4
+    title: Enviromental
+    path: enviromental
+    icon: mdi:thermometer-lines
+    sections:
+      - type: grid
+        cards:
+          - type: heading
+            heading_style: title
+            heading: Weather
+            icon: mdi:weather-hazy
+          - show_current: true
+            show_forecast: true
+            type: weather-forecast
+            entity: weather.home
+            forecast_type: daily
+            name: MyTown Weather
+            secondary_info_attribute: temperature
+            forecast_slots: 9
+          - type: horizontal-stack
+            cards:
+              - type: custom:button-card
+                entity: binary_sensor.wi_fi_rain_sensor_moisture
+                name: Raining?
+                icon: mdi:weather-rainy
+                layout: vertical
+                show_state: false
+                tap_action:
+                  action: more-info
+                state:
+                  - value: 'on'
+                    icon: mdi:weather-pouring
+                    color: red
+                  - value: 'off'
+                    icon: mdi:weather-sunny
+                    color: green
+                styles:
+                  card:
+                    - background-color: white
+                    - border: 2px solid lightgrey
+                    - border-radius: 12px
+                    - width: 240px
+                    - height: 140px
+                    - padding: 8px
+                    - display: flex
+                    - flex-direction: column
+                    - justify-content: space-between
+                    - align-items: center
+                    - box-sizing: border-box
+                    - position: relative
+                  icon:
+                    - width: 64px
+                    - height: 64px
+                    - margin: 0 auto
+                  name:
+                    - font-size: 15px
+                    - font-weight: bold
+                    - text-align: center
+                    - white-space: normal
+                    - line-height: 1.2
+                    - padding-bottom: 4px
+                  custom_fields:
+                    last_seen:
+                      - position: absolute
+                      - top: 50%
+                      - left: 50%
+                      - transform: translate(-50%, -50%)
+                      - background-color: rgba(255, 255, 255, 0.7)
+                      - padding: 4px 10px
+                      - border-radius: 10px
+                      - font-size: 14px
+                      - font-weight: bold
+                      - color: '#000'
+                      - z-index: 2
+                custom_fields:
+                  last_seen: >
+                    [[[ return new
+                    Date(entity.last_changed).toLocaleTimeString([], {hour:
+                    '2-digit', minute:'2-digit'}); ]]]
+              - type: custom:button-card
+                entity: sensor.sun_next_dawn
+                name: Sunrise
+                icon: mdi:weather-sunset-up
+                layout: vertical
+                show_state: true
+                tap_action:
+                  action: more-info
+                styles:
+                  card:
+                    - background-color: white
+                    - border: 2px solid lightgrey
+                    - border-radius: 12px
+                    - width: 240px
+                    - height: 140px
+                    - padding: 8px
+                    - display: flex
+                    - flex-direction: column
+                    - justify-content: space-between
+                    - align-items: center
+                    - box-sizing: border-box
+                  icon:
+                    - width: 64px
+                    - height: 64px
+                    - margin: 0 auto
+                  name:
+                    - font-size: 15px
+                    - font-weight: bold
+                    - text-align: center
+                    - white-space: normal
+                    - line-height: 1.2
+                    - padding-bottom: 4px
+                  state:
+                    - font-size: 14px
+                    - color: '#555'
+                    - text-align: center
+                    - padding-bottom: 6px
+      - type: grid
+        cards:
+          - type: heading
+            heading_style: title
+            heading: Thermostat
+            icon: mdi:thermostat-box-auto
+          - square: false
+            type: grid
+            columns: 3
+            cards:
+              - type: tile
+                entity: climate.heating
+                name: Heating Mode
+                icon: mdi:thermostat
+                features_position: bottom
+                vertical: false
+                tap_action:
+                  action: toggle
+                features:
+                  - type: target-temperature
+                  - type: climate-hvac-modes
+                  - type: climate-preset-modes
+                    style: dropdown
+              - type: tile
+                entity: sensor.heating_temperature
+                name: Temperature
+                icon: mdi:thermometer
+                vertical: false
+                features_position: bottom
+                tap_action:
+                  action: more-info
+              - type: tile
+                entity: sensor.heating_humidity
+                name: Humidity
+                icon: mdi:water-percent
+                vertical: false
+                features_position: bottom
+                tap_action:
+                  action: more-info
+    background:
+      opacity: 70
+      alignment: center
+      size: cover
+      repeat: no-repeat
+      attachment: fixed
+      image: /api/image/serve/f1b50057bd58d9061cede8b7eb329717/original
+    cards: []
+    header:
+      card:
+        type: markdown
+        text_only: true
+        content: |-
+          # Hello {{ user }}
+          Welcome to Home Stats Page
+  - type: sections
+    max_columns: 4
+    title: Devices & Locations
+    path: devices-locations
+    icon: mdi:tablet-cellphone
+    sections:
+      - type: grid
+        cards:
+          - type: heading
+            heading_style: title
+            heading: Family Devices
+          - type: grid
+            columns: 3
+            gap: 10px
+            square: false
+            cards:
+              - type: custom:button-card
+                entity: sensor.Child A_ipad_battery
+                name: Child A iPad
+                icon: mdi:tablet
+                color_type: card
+                show_state: true
+                layout: vertical
+                tap_action:
+                  action: call-service
+                  service: script.find_device
+                  data:
+                    account: REDACTED_EMAIL
+                    device_name: Child A-iPad
+                styles:
+                  card:
+                    - border-radius: 8px
+                    - border: 1px solid lightgrey
+                    - padding: 2px
+                    - margin: 0px
+                    - width: 120px
+                    - height: 120px
+                  name:
+                    - font-size: 12px
+                  state:
+                    - font-size: 11px
+                label: |
+                  [[[
+                    var seen = states['device_tracker.Child A_iphone'].attributes.last_seen;
+                    return seen ? "Last seen: " + seen : "Unknown";
+                  ]]]
+              - type: custom:button-card
+                entity: sensor.Child A_iphone_battery
+                name: Child A iPhone
+                icon: mdi:cellphone
+                show_state: true
+                layout: vertical
+                tap_action:
+                  action: call-service
+                  service: script.find_device
+                  data:
+                    account: REDACTED_EMAIL
+                    device_name: Child A-iPhone
+                styles:
+                  card:
+                    - border-radius: 8px
+                    - border: 1px solid lightgrey
+                    - padding: 2px
+                    - margin: 0px
+                    - width: 120px
+                    - height: 120px
+                    - background-color: auto
+                  name:
+                    - font-size: 12px
+                  state:
+                    - font-size: 11px
+                label: |
+                  [[[
+                    var seen = states['device_tracker.Child A_iphone'].attributes.last_seen;
+                    return seen ? "Last seen: " + seen : "Unknown";
+                  ]]]
+              - type: custom:button-card
+                entity: sensor.Child B_ipad_battery
+                name: Child B iPad
+                icon: mdi:tablet
+                show_state: true
+                layout: vertical
+                tap_action:
+                  action: call-service
+                  service: script.find_device
+                  data:
+                    account: REDACTED_EMAIL
+                    device_name: Child B-iPad
+                styles:
+                  card:
+                    - border-radius: 8px
+                    - border: 1px solid lightgrey
+                    - padding: 2px
+                    - margin: 0px
+                    - width: 120px
+                    - height: 120px
+                    - background-color: auto
+                  name:
+                    - font-size: 12px
+                  state:
+                    - font-size: 11px
+                label: |
+                  [[[
+                    var seen = states['device_tracker.Child A_iphone'].attributes.last_seen;
+                    return seen ? "Last seen: " + seen : "Unknown";
+                  ]]]
+              - type: custom:button-card
+                entity: sensor.Mrs-OK_ipad_battery
+                name: Mrs-OK iPad
+                icon: mdi:tablet
+                show_state: true
+                layout: vertical
+                tap_action:
+                  action: call-service
+                  service: script.find_device
+                  data:
+                    account: REDACTED_EMAIL
+                    device_name: Mrs-OK-iPad
+                styles:
+                  card:
+                    - border-radius: 8px
+                    - border: 1px solid lightgrey
+                    - padding: 2px
+                    - margin: 0px
+                    - width: 120px
+                    - height: 120px
+                    - background-color: auto
+                  name:
+                    - font-size: 12px
+                  state:
+                    - font-size: 11px
+                label: |
+                  [[[
+                    var seen = states['device_tracker.Mrs-OK_ipad'].attributes.last_seen;
+                    return seen ? "Last seen: " + seen : "Unknown";
+                  ]]]
+              - type: custom:button-card
+                entity: sensor.Mrs-OK_iphone_battery
+                name: Mrs-OK iPhone
+                icon: mdi:cellphone
+                show_state: true
+                layout: vertical
+                tap_action:
+                  action: call-service
+                  service: script.find_device
+                  data:
+                    account: REDACTED_EMAIL
+                    device_name: Mrs-OK-iPhone
+                styles:
+                  card:
+                    - border-radius: 8px
+                    - border: 1px solid lightgrey
+                    - padding: 2px
+                    - margin: 0px
+                    - width: 120px
+                    - height: 120px
+                    - background-color: auto
+                  name:
+                    - font-size: 12px
+                  state:
+                    - font-size: 11px
+                label: |
+                  [[[
+                    var seen = states['device_tracker.Mrs-OK_iphone'].attributes.last_seen;
+                    return seen ? "Last seen: " + seen : "Unknown";
+                  ]]]
+              - type: custom:button-card
+                entity: sensor.Mrs-OK_watch_battery
+                name: Mrs-OK Watch
+                icon: mdi:watch
+                show_state: true
+                layout: vertical
+                tap_action:
+                  action: call-service
+                  service: script.find_device
+                  data:
+                    account: REDACTED_EMAIL
+                    device_name: Mrs-OK-Watch
+                styles:
+                  card:
+                    - border-radius: 8px
+                    - border: 1px solid lightgrey
+                    - padding: 2px
+                    - margin: 0px
+                    - width: 120px
+                    - height: 120px
+                    - background-color: auto
+                  name:
+                    - font-size: 12px
+                  state:
+                    - font-size: 11px
+                label: |
+                  [[[
+                    var seen = states['device_tracker.Mrs-OK_watch'].attributes.last_seen;
+                    return seen ? "Last seen: " + seen : "Unknown";
+                  ]]]
+              - type: custom:button-card
+                entity: sensor.will_ipad_battery
+                name: Will iPad
+                icon: mdi:tablet
+                show_state: true
+                layout: vertical
+                tap_action:
+                  action: call-service
+                  service: script.find_device
+                  data:
+                    account: REDACTED_EMAIL
+                    device_name: Will-iPad
+                styles:
+                  card:
+                    - border-radius: 8px
+                    - border: 1px solid lightgrey
+                    - padding: 2px
+                    - margin: 0px
+                    - width: 120px
+                    - height: 120px
+                    - background-color: auto
+                  name:
+                    - font-size: 12px
+                  state:
+                    - font-size: 11px
+                label: |
+                  [[[
+                    var seen = states['device_tracker.will_ipad'].attributes.last_seen;
+                    return seen ? "Last seen: " + seen : "Unknown";
+                  ]]]
+              - type: custom:button-card
+                entity: sensor.will_iphone_16_battery
+                name: Will iPhone
+                icon: mdi:cellphone
+                show_state: true
+                layout: vertical
+                tap_action:
+                  action: call-service
+                  service: script.find_device
+                  data:
+                    account: REDACTED_EMAIL
+                    device_name: Will-iPhone-16
+                styles:
+                  card:
+                    - border-radius: 8px
+                    - border: 1px solid lightgrey
+                    - padding: 2px
+                    - margin: 0px
+                    - width: 120px
+                    - height: 120px
+                    - background-color: auto
+                  name:
+                    - font-size: 12px
+                  state:
+                    - font-size: 11px
+                label: |
+                  [[[
+                    var seen = states['device_tracker.will_iphone_16'].attributes.last_seen;
+                    return seen ? "Last seen: " + seen : "Unknown";
+                  ]]]
+              - type: custom:button-card
+                entity: sensor.will_watch_battery
+                name: Will Watch
+                icon: mdi:watch
+                show_state: true
+                layout: vertical
+                tap_action:
+                  action: call-service
+                  service: script.find_device
+                  data:
+                    account: REDACTED_EMAIL
+                    device_name: Will-Watch
+                styles:
+                  card:
+                    - border-radius: 8px
+                    - border: 1px solid lightgrey
+                    - padding: 2px
+                    - margin: 0px
+                    - width: 120px
+                    - height: 120px
+                    - background-color: auto
+                  name:
+                    - font-size: 12px
+                  state:
+                    - font-size: 11px
+                label: |
+                  [[[
+                    var seen = states['device_tracker.will_watch'].attributes.last_seen;
+                    return seen ? "Last seen: " + seen : "Unknown";
+                  ]]]
+      - type: grid
+        cards:
+          - type: heading
+            heading: New section
+          - type: entities
+            entities:
+              - entity: sensor.will_toothbrush_battery
+              - entity: sensor.smart_series_4000_1b53_battery
+            title: Battery Levels
+            show_header_toggle: false
+            state_color: true
+    background:
+      opacity: 50
+      alignment: center
+      size: contain
+      repeat: no-repeat
+      attachment: scroll
+      image: /api/image/serve/bb7409d7d23130c81dc2e41f262e3e93/original
+    cards: []
+  - type: sections
+    max_columns: 4
+    title: Security
+    path: security
+    icon: mdi:shield-lock
+    sections:
+      - type: grid
+        cards:
+          - type: heading
+            heading: New section
+          - type: grid
+            columns: 2
+            square: false
+            cards:
+              - type: custom:button-card
+                entity: binary_sensor.porch_motion_sensor
+                name: Porch Motion Detected
+                layout: vertical
+                show_state: false
+                tap_action:
+                  action: more-info
+                state:
+                  - value: 'on'
+                    icon: mdi:walk
+                    color: red
+                    styles:
+                      card:
+                        - animation: pulse 1s infinite
+                  - value: 'off'
+                    icon: mdi:walk
+                    color: green
+                styles:
+                  card:
+                    - background-color: white
+                    - border: 2px solid lightgrey
+                    - border-radius: 12px
+                    - width: 240px
+                    - height: 140px
+                    - padding: 8px
+                    - display: flex
+                    - flex-direction: column
+                    - justify-content: space-between
+                    - align-items: center
+                    - box-sizing: border-box
+                    - position: relative
+                  name:
+                    - font-size: 15px
+                    - font-weight: bold
+                    - text-align: center
+                    - white-space: normal
+                    - line-height: 1.2
+                    - padding-bottom: 4px
+                  icon:
+                    - width: 64px
+                    - height: 64px
+                    - margin: 0 auto
+                extra_styles: |
+                  @keyframes pulse {
+                    0% { box-shadow: 0 0 0 0 rgba(255, 0, 0, 0.4); }
+                    70% { box-shadow: 0 0 0 10px rgba(255, 0, 0, 0); }
+                    100% { box-shadow: 0 0 0 0 rgba(255, 0, 0, 0); }
+                  }
+              - type: custom:button-card
+                entity: binary_sensor.ewelink_snzb_04_3
+                name: Cat Flap
+                layout: vertical
+                show_state: false
+                tap_action:
+                  action: more-info
+                state:
+                  - value: 'on'
+                    icon: mdi:cat
+                    color: red
+                    styles:
+                      card:
+                        - animation: pulse 1s infinite
+                  - value: 'off'
+                    icon: mdi:cat
+                    color: green
+                styles:
+                  card:
+                    - background-color: white
+                    - border: 2px solid lightgrey
+                    - border-radius: 12px
+                    - width: 240px
+                    - height: 140px
+                    - padding: 8px
+                    - display: flex
+                    - flex-direction: column
+                    - justify-content: space-between
+                    - align-items: center
+                    - box-sizing: border-box
+                    - position: relative
+                  name:
+                    - font-size: 15px
+                    - font-weight: bold
+                    - text-align: center
+                    - white-space: normal
+                    - line-height: 1.2
+                    - padding-bottom: 4px
+                  icon:
+                    - width: 64px
+                    - height: 64px
+                    - margin: 0 auto
+                  custom_fields:
+                    last_seen:
+                      - position: absolute
+                      - top: 50%
+                      - left: 50%
+                      - transform: translate(-50%, -50%)
+                      - background-color: rgba(255, 255, 255, 0.7)
+                      - padding: 4px 10px
+                      - border-radius: 10px
+                      - font-size: 14px
+                      - font-weight: bold
+                      - color: '#000'
+                      - z-index: 2
+                custom_fields:
+                  last_seen: >
+                    [[[ return new
+                    Date(entity.last_changed).toLocaleTimeString([], {hour:
+                    '2-digit', minute:'2-digit'}); ]]]
+              - type: custom:button-card
+                entity: binary_sensor.ewelink_snzb_04
+                name: Front Door
+                layout: vertical
+                show_state: false
+                tap_action:
+                  action: more-info
+                state:
+                  - value: 'on'
+                    icon: mdi:door-open
+                    color: red
+                    styles:
+                      card:
+                        - animation: pulse 1s infinite
+                  - value: 'off'
+                    icon: mdi:door-closed
+                    color: green
+                styles:
+                  card:
+                    - background-color: white
+                    - border: 2px solid lightgrey
+                    - border-radius: 12px
+                    - width: 240px
+                    - height: 140px
+                    - padding: 8px
+                    - display: flex
+                    - flex-direction: column
+                    - justify-content: space-between
+                    - align-items: center
+                    - box-sizing: border-box
+                    - position: relative
+                  name:
+                    - font-size: 15px
+                    - font-weight: bold
+                    - text-align: center
+                    - white-space: normal
+                    - line-height: 1.2
+                    - padding-bottom: 4px
+                  icon:
+                    - width: 64px
+                    - height: 64px
+                    - margin: 0 auto
+                  custom_fields:
+                    last_seen:
+                      - position: absolute
+                      - top: 50%
+                      - left: 50%
+                      - transform: translate(-50%, -50%)
+                      - background-color: rgba(255, 255, 255, 0.7)
+                      - padding: 4px 10px
+                      - border-radius: 10px
+                      - font-size: 14px
+                      - font-weight: bold
+                      - color: '#000'
+                      - z-index: 2
+                custom_fields:
+                  last_seen: >
+                    [[[ return new
+                    Date(entity.last_changed).toLocaleTimeString([], {hour:
+                    '2-digit', minute:'2-digit'}); ]]]
+              - type: custom:button-card
+                entity: binary_sensor.ewelink_snzb_04_2
+                name: Kitchen Door
+                layout: vertical
+                show_state: false
+                tap_action:
+                  action: more-info
+                state:
+                  - value: 'on'
+                    icon: mdi:door-open
+                    color: red
+                    styles:
+                      card:
+                        - animation: pulse 1s infinite
+                  - value: 'off'
+                    icon: mdi:door-closed
+                    color: green
+                styles:
+                  card:
+                    - background-color: white
+                    - border: 2px solid lightgrey
+                    - border-radius: 12px
+                    - width: 240px
+                    - height: 140px
+                    - padding: 8px
+                    - display: flex
+                    - flex-direction: column
+                    - justify-content: space-between
+                    - align-items: center
+                    - box-sizing: border-box
+                    - position: relative
+                  name:
+                    - font-size: 15px
+                    - font-weight: bold
+                    - text-align: center
+                    - white-space: normal
+                    - line-height: 1.2
+                    - padding-bottom: 4px
+                  icon:
+                    - width: 64px
+                    - height: 64px
+                    - margin: 0 auto
+                  custom_fields:
+                    last_seen:
+                      - position: absolute
+                      - top: 50%
+                      - left: 50%
+                      - transform: translate(-50%, -50%)
+                      - background-color: rgba(255, 255, 255, 0.7)
+                      - padding: 4px 10px
+                      - border-radius: 10px
+                      - font-size: 14px
+                      - font-weight: bold
+                      - color: '#000'
+                      - z-index: 2
+                custom_fields:
+                  last_seen: >
+                    [[[ return new
+                    Date(entity.last_changed).toLocaleTimeString([], {hour:
+                    '2-digit', minute:'2-digit'}); ]]]
+              - type: custom:button-card
+                entity: binary_sensor.downstairs_loo_motion_sensor_occupancy
+                name: Downstairs Loo
+                layout: vertical
+                show_state: false
+                tap_action:
+                  action: more-info
+                state:
+                  - value: 'on'
+                    icon: mdi:toilet
+                    color: red
+                    styles:
+                      card:
+                        - animation: pulse 1s infinite
+                  - value: 'off'
+                    icon: mdi:toilet
+                    color: green
+                styles:
+                  card:
+                    - background-color: white
+                    - border: 2px solid lightgrey
+                    - border-radius: 12px
+                    - width: 240px
+                    - height: 140px
+                    - padding: 8px
+                    - display: flex
+                    - flex-direction: column
+                    - justify-content: space-between
+                    - align-items: center
+                    - box-sizing: border-box
+                    - position: relative
+                  name:
+                    - font-size: 15px
+                    - font-weight: bold
+                    - text-align: center
+                    - white-space: normal
+                    - line-height: 1.2
+                    - padding-bottom: 4px
+                  icon:
+                    - width: 64px
+                    - height: 64px
+                    - margin: 0 auto
+                  custom_fields:
+                    last_seen:
+                      - position: absolute
+                      - top: 50%
+                      - left: 50%
+                      - transform: translate(-50%, -50%)
+                      - background-color: rgba(255, 255, 255, 0.7)
+                      - padding: 4px 10px
+                      - border-radius: 10px
+                      - font-size: 14px
+                      - font-weight: bold
+                      - color: '#000'
+                      - z-index: 2
+                custom_fields:
+                  last_seen: >
+                    [[[ return new
+                    Date(entity.last_changed).toLocaleTimeString([], {hour:
+                    '2-digit', minute:'2-digit'}); ]]]
+              - type: custom:button-card
+                entity: binary_sensor.parcel_box_tilt_sensor
+                name: Parcel Box
+                layout: vertical
+                show_state: false
+                tap_action:
+                  action: more-info
+                state:
+                  - value: 'on'
+                    icon: mdi:package-variant
+                    color: red
+                    styles:
+                      card:
+                        - animation: pulse 1s infinite
+                  - value: 'off'
+                    icon: mdi:package-variant-closed
+                    color: green
+                styles:
+                  card:
+                    - background-color: white
+                    - border: 2px solid lightgrey
+                    - border-radius: 12px
+                    - width: 240px
+                    - height: 140px
+                    - padding: 8px
+                    - display: flex
+                    - flex-direction: column
+                    - justify-content: space-between
+                    - align-items: center
+                    - box-sizing: border-box
+                    - position: relative
+                  name:
+                    - font-size: 15px
+                    - font-weight: bold
+                    - text-align: center
+                    - white-space: normal
+                    - line-height: 1.2
+                    - padding-bottom: 4px
+                  icon:
+                    - width: 64px
+                    - height: 64px
+                    - margin: 0 auto
+                  custom_fields:
+                    last_seen:
+                      - position: absolute
+                      - top: 50%
+                      - left: 50%
+                      - transform: translate(-50%, -50%)
+                      - background-color: rgba(255, 255, 255, 0.7)
+                      - border-radius: 10px
+                      - font-size: 14px
+                      - font-weight: bold
+                      - color: '#000'
+                      - z-index: 2
+                custom_fields:
+                  last_seen: |
+                    [[[ 
+                      if (!entity || !entity.last_changed) return "—"; 
+                      const d = new Date(entity.last_changed);
+                      if (isNaN(d)) return "Invalid"; 
+                      return `${d.getHours().toString().padStart(2,'0')}:${d.getMinutes().toString().padStart(2,'0')}`; 
+                    ]]]
+      - type: grid
+        cards:
+          - type: heading
+            heading: New section
+          - show_state: true
+            show_name: true
+            camera_view: live
+            fit_mode: cover
+            type: picture-entity
+            entity: camera.front_garden_mainstreamprofile
+            name: Front Garden
+            camera_image: camera.front_garden_mainstreamprofile
+          - show_state: true
+            show_name: true
+            camera_view: live
+            fit_mode: cover
+            type: picture-entity
+            entity: camera.back_garden_mainstreamprofile
+            name: Back Garden
+            camera_image: camera.back_garden_mainstreamprofile
+          - show_state: true
+            show_name: true
+            camera_view: auto
+            fit_mode: cover
+            type: picture-entity
+            entity: camera.front_driveway
+            camera_image: camera.front_driveway
+          - show_state: true
+            show_name: true
+            camera_view: live
+            fit_mode: cover
+            type: picture-entity
+            entity: camera.summerhouse_mainstreamprofile
+            name: Summerhouse
+            camera_image: camera.back_garden_mainstreamprofile
+      - type: grid
+        cards:
+          - type: heading
+            heading: New section
+          - type: map
+            entities:
+              - entity: device_tracker.wills_iphone_xs_2
+              - entity: device_tracker.Mrs-OK_s_iphone
+              - entity: device_tracker.puss_tracker
+            theme_mode: auto
+            title: Locations
+    background:
+      opacity: 33
+      alignment: center
+      size: cover
+      repeat: no-repeat
+      attachment: fixed
+      image: /api/image/serve/cd1e364dacfc36cd4a907d7a97903227/original
+    cards: []
+    badges:
+      - type: entity
+        show_name: true
+        show_state: true
+        show_icon: true
+        entity: switch.back_cctv
+        name: Back SW
+        icon: mdi:video-switch
+      - type: entity
+        show_name: true
+        show_state: true
+        show_icon: true
+        entity: switch.front_cctv
+        name: Front SW
+        icon: mdi:video-switch
+  - type: sections
+    max_columns: 4
+    title: Vehicles
+    path: vehicles
+    icon: mdi:car-connected
+    sections:
+      - type: grid
+        cards:
+          - type: heading
+            heading_style: title
+            heading: CAR_REG
+          - type: entities
+            entities:
+              - entity: sensor.wok_mobile_battery_level
+                name: Battery level
+              - entity: sensor.wok_mobile_battery_range
+                name: Battery range
+              - entity: sensor.wok_mobile_charge_energy_added
+                name: Charge energy added
+              - entity: sensor.wok_mobile_charger_power
+                name: Charger power
+              - entity: sensor.wok_mobile_charging
+                name: Charging
+              - entity: sensor.wok_mobile_distance_to_arrival
+                name: Distance to arrival
+              - entity: sensor.wok_mobile_inside_temperature
+                name: Inside temperature
+              - entity: sensor.wok_mobile_outside_temperature
+                name: Outside temperature
+              - entity: binary_sensor.wok_mobile_status
+                name: Status
+              - entity: sensor.wok_mobile_time_to_arrival
+                name: Time to arrival
+              - entity: binary_sensor.wok_mobile_user_present
+                name: User present
+            title: Tesla
+            grid_options:
+              columns: 12
+              rows: 1
+            state_color: false
+            show_header_toggle: false
+          - type: entities
+            entities:
+              - entity: select.ohme_home_pro_charge_mode
+              - entity: number.ohme_home_pro_target_percentage
+              - entity: time.ohme_home_pro_target_time
+              - entity: sensor.ohme_home_pro_current
+              - entity: sensor.ohme_home_pro_status
+              - entity: sensor.ohme_home_pro_vehicle_battery
+            title: EV Charging
+            state_color: true
+        column_span: 2
+    background:
+      opacity: 60
+      alignment: center
+      size: contain
+      repeat: no-repeat
+      attachment: fixed
+      image: /api/image/serve/e81368253f848decc68a96fb8931b5b7/original
+    cards: []
+    header:
+      card:
+        type: markdown
+        text_only: true
+        content: |-
+          # Hello {{ user }}
+          Happy Driving
+  - type: sections
+    max_columns: 4
+    title: Tech Stuff
+    path: tech-stuff
+    icon: mdi:router-network-wireless
+    sections:
+      - type: grid
+        cards:
+          - type: heading
+            heading: New section
+          - type: entities
+            entities:
+              - entity: sensor.speedtest_download
+                name: Download
+              - entity: sensor.speedtest_ping
+                name: Ping
+              - entity: sensor.speedtest_upload
+                name: Upload
+            title: SpeedTest
+            state_color: true
+    background:
+      opacity: 33
+      alignment: center
+      size: cover
+      repeat: no-repeat
+      attachment: fixed
+      image: /api/image/serve/206702d69eb9170eec0dba306c2ee7fd/original
+    cards: []
+  - type: sections
+    max_columns: 4
+    title: Miscellaneous
+    path: miscellaneous
+    icon: mdi:curtains
+    sections:
+      - type: grid
+        cards:
+          - type: heading
+            heading: New section
+          - type: entities
+            title: Starling Bank Balances
+            entities:
+              - entity: sensor.starling_account_balance
+                name: Primary Account
+              - entity: sensor.starling_space_Child A_balance
+              - entity: sensor.starling_space_Child B_balance
+            state_color: false
+          - square: false
+            type: grid
+            cards:
+              - show_name: true
+                show_icon: true
+                type: button
+                entity: switch.pond_pump
+                icon: mdi:fountain
+                name: Pond Pump
+                show_state: true
+              - show_name: true
+                show_icon: true
+                type: button
+                entity: remote.192_168_1_66
+                name: Lounge Sky Box
+                show_state: true
+                tap_action:
+                  action: toggle
+              - show_name: true
+                show_icon: true
+                type: button
+                entity: remote.192_168_1_199
+                name: Playroom Sky Box
+                show_state: true
+              - show_name: true
+                show_icon: true
+                type: button
+                entity: remote.192_168_1_96
+                name: Bedroom Sky Box
+                show_state: true
+            title: Other Controls
+            columns: 2
+            grid_options:
+              columns: 9
+              rows: auto
+    background:
+      opacity: 70
+      alignment: center
+      size: cover
+      repeat: no-repeat
+      attachment: fixed
+      image: /api/image/serve/5c89ede1df523b8b0a78fde862cca2a7/original
+    cards: []

@@ -1,0 +1,10 @@
+# Rain Sensor Button Card - Will Osborne-Kennedy.  CTRL+ALT+DELusions / @willkennedy78
+# Use freely without attribution
+
+type: custom:button-card
+entity: binary_sensor.rain_sensor
+state:
+  - value: "on"
+    icon: mdi:weather-pouring
+  - value: "off"
+    icon: mdi:weather-sunny
