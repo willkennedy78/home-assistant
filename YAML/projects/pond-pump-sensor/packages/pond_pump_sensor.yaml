@@ -1,0 +1,150 @@
+# Pond Pump CCTV Vision Sensor - CTRL+ALT+DELusions / @willkennedy78
+# Use freely without attribution
+#
+# Monitors whether the pond fountain pump is flowing correctly by analysing
+# live CCTV snapshots from the back garden and summerhouse cameras using
+# Claude AI vision. Raises a fault sensor and sends an alert if the pump
+# is switched on but no water flow is detected.
+#
+# Entities created:
+#   sensor.pond_pump_camera_analysis    - raw analysis state
+#   binary_sensor.pond_pump_water_flowing - true when water is detected
+#   binary_sensor.pond_pump_fault       - true when pump on but no water
+#
+# See README.md for full setup instructions.
+
+shell_command:
+  analyse_pond_pump: >-
+    nohup python3 /config/scripts/pond_pump/analyse_pond_camera.py
+    >> /config/scripts/pond_pump/pond_pump.log 2>&1 &
+
+template:
+  - binary_sensor:
+      - name: Pond Pump Water Flowing
+        unique_id: pond_pump_water_flowing
+        device_class: moisture
+        state: >
+          {{ states('sensor.pond_pump_camera_analysis') == 'flowing' }}
+        icon: >
+          {% if states('sensor.pond_pump_camera_analysis') == 'flowing' %}
+            mdi:fountain
+          {% elif states('sensor.pond_pump_camera_analysis') == 'pump_off' %}
+            mdi:fountain-pen-tip
+          {% else %}
+            mdi:help-circle-outline
+          {% endif %}
+        availability: >
+          {{ states('sensor.pond_pump_camera_analysis') not in
+             ['unavailable', 'unknown', ''] }}
+
+      - name: Pond Pump Fault
+        unique_id: pond_pump_fault
+        device_class: problem
+        state: >
+          {{ is_state('switch.pond_pump', 'on') and
+             states('sensor.pond_pump_camera_analysis') == 'not_flowing' }}
+        icon: >
+          {% if is_state('switch.pond_pump', 'on') and
+                states('sensor.pond_pump_camera_analysis') == 'not_flowing' %}
+            mdi:alert-circle
+          {% else %}
+            mdi:check-circle
+          {% endif %}
+        availability: >
+          {{ states('sensor.pond_pump_camera_analysis') not in
+             ['unavailable', ''] and
+             states('switch.pond_pump') not in ['unavailable', 'unknown'] }}
+
+automation:
+  # ── Trigger analysis when pump is switched on ──────────────────────────────
+  - id: pond_pump_analysis_on_start
+    alias: Pond Pump - Analyse on Pump Start
+    description: Run vision analysis shortly after the pump is switched on
+    triggers:
+      - trigger: state
+        entity_id: switch.pond_pump
+        to: "on"
+        for:
+          seconds: 30
+    conditions: []
+    actions:
+      - action: shell_command.analyse_pond_pump
+    mode: single
+
+  # ── Periodic analysis while pump is running ────────────────────────────────
+  - id: pond_pump_analysis_periodic
+    alias: Pond Pump - Periodic Camera Analysis
+    description: Re-analyse every 3 minutes while the pump is on
+    triggers:
+      - trigger: time_pattern
+        minutes: /3
+    conditions:
+      - condition: state
+        entity_id: switch.pond_pump
+        state: "on"
+    actions:
+      - action: shell_command.analyse_pond_pump
+    mode: single
+
+  # ── Fault alert ───────────────────────────────────────────────────────────
+  - id: pond_pump_fault_alert
+    alias: Pond Pump - Fault Alert
+    description: >
+      Alert when the pump has been on for at least 5 minutes with no detected
+      water flow. The 5-minute delay avoids false positives on startup.
+    triggers:
+      - trigger: state
+        entity_id: binary_sensor.pond_pump_fault
+        to: "on"
+        for:
+          minutes: 5
+    conditions: []
+    actions:
+      - action: notify.notify
+        # TODO: replace notify.notify with your preferred target, e.g.
+        #   notify.mobile_app_<your_phone>  or  notify.alexa_media_<device>
+        data:
+          title: "Pond Pump Alert"
+          message: >
+            The pond pump has been running for over 5 minutes but no water
+            flow is visible from the fountain. Please check the pump.
+          data:
+            importance: high
+            tag: pond_pump_fault
+    mode: single
+
+  # ── Fault resolved ────────────────────────────────────────────────────────
+  - id: pond_pump_fault_resolved
+    alias: Pond Pump - Fault Resolved
+    description: Notify when water flow is detected after a fault
+    triggers:
+      - trigger: state
+        entity_id: binary_sensor.pond_pump_fault
+        to: "off"
+        from: "on"
+    conditions:
+      - condition: state
+        entity_id: switch.pond_pump
+        state: "on"
+    actions:
+      - action: notify.notify
+        # TODO: replace notify.notify with your preferred target (see above)
+        data:
+          title: "Pond Pump OK"
+          message: "Pond pump is now running normally — water flow detected."
+          data:
+            tag: pond_pump_fault
+    mode: single
+
+  # ── Clear analysis state when pump is turned off ───────────────────────────
+  - id: pond_pump_clear_on_off
+    alias: Pond Pump - Clear Analysis on Pump Off
+    description: Run a final analysis pass when the pump is switched off
+    triggers:
+      - trigger: state
+        entity_id: switch.pond_pump
+        to: "off"
+    conditions: []
+    actions:
+      - action: shell_command.analyse_pond_pump
+    mode: single
