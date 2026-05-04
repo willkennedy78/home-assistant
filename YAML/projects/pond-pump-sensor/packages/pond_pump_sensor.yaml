@@ -30,7 +30,7 @@ script:
     sequence:
       - if:
           - condition: state
-            entity_id: switch.pond_pump
+            entity_id: switch.pond_pump_2
             state: "off"
         then:
           - action: input_text.set_value
@@ -111,10 +111,10 @@ template:
         unique_id: pond_pump_fault
         device_class: problem
         state: >
-          {{ is_state('switch.pond_pump', 'on') and
+          {{ is_state('switch.pond_pump_2', 'on') and
              states('input_text.pond_pump_camera_status') == 'not_flowing' }}
         icon: >
-          {% if is_state('switch.pond_pump', 'on') and
+          {% if is_state('switch.pond_pump_2', 'on') and
                 states('input_text.pond_pump_camera_status') == 'not_flowing' %}
             mdi:alert-circle
           {% else %}
@@ -123,7 +123,7 @@ template:
         availability: >
           {{ states('input_text.pond_pump_camera_status') not in
              ['unavailable', ''] and
-             states('switch.pond_pump') not in ['unavailable', 'unknown'] }}
+             states('switch.pond_pump_2') not in ['unavailable', 'unknown'] }}
 
 automation:
   # ── Trigger analysis 30 s after pump switches on (allows pump to prime) ───
@@ -132,7 +132,7 @@ automation:
     description: Run vision analysis shortly after the pump is switched on
     triggers:
       - trigger: state
-        entity_id: switch.pond_pump
+        entity_id: switch.pond_pump_2
         to: "on"
         for:
           seconds: 30
@@ -150,7 +150,7 @@ automation:
         minutes: /3
     conditions:
       - condition: state
-        entity_id: switch.pond_pump
+        entity_id: switch.pond_pump_2
         state: "on"
     actions:
       - action: script.pond_pump_analyse_cameras
@@ -162,7 +162,7 @@ automation:
     description: Reset analysis status when the pump is switched off
     triggers:
       - trigger: state
-        entity_id: switch.pond_pump
+        entity_id: switch.pond_pump_2
         to: "off"
     conditions: []
     actions:
@@ -207,7 +207,7 @@ automation:
         from: "on"
     conditions:
       - condition: state
-        entity_id: switch.pond_pump
+        entity_id: switch.pond_pump_2
         state: "on"
     actions:
       - action: notify.notify
