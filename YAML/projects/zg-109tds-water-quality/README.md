@@ -18,6 +18,8 @@ device for a while.
 |---|---|
 | `excellux_zg109tds.py` | The quirk. Copy it into your custom quirks folder. |
 | `test_excellux_zg109tds.py` | Offline tests: DP decoding, write encoding, translation-key clashes. |
+| `excellux_zg105nth.py` | Companion quirk for the Excellux ZG-105NTH / ZG-106NTH / EZ-L01NTH probe thermometer (`NTCHT01/02/03`), used as a reference water-temperature probe. |
+| `test_excellux_zg105nth.py` | Offline tests for the probe thermometer quirk, built on its real signature. |
 
 ---
 
@@ -127,6 +129,26 @@ They cover:
 | `ImportError` on load | Very old HA. The quirk falls back to `zigpy.quirks.v2.homeassistant` imports, but the v2 builder still needs HA ≥ 2024.x. |
 
 ---
+
+## Companion: ZG-105NTH probe thermometer
+
+The ZG-109TDS probe reads about 5 °C high (side by side with its own air sensor
+indoors: +5.2 °C, steady over four hours). A second probe is used as a reference.
+
+That device (`NTCHT01` / `Excellux`) advertises Tuya cluster `0xEF00` only as an
+**output** cluster, so out of the box ZHA never receives its datapoints. It does
+send native ZCL temperature and humidity reports, and which physical sensor
+those come from isn't documented. The quirk therefore:
+
+- adds a server-side Tuya MCU cluster so the datapoints arrive;
+- exposes **Probe temperature** (DP1) and **Air temperature** (DP5) as separate
+  sensors, and leaves the native temperature cluster untouched, so the two
+  sources cannot overwrite each other;
+- stores DP4 (battery) and DP118 (humidity) without entities, because they
+  duplicate native reports, so frames are still acknowledged as `SUCCESS`.
+
+Once it's live, compare the native temperature with DP1 and DP5. Whichever it
+matches is the duplicate, and can be disabled in Home Assistant.
 
 ## Upstreaming
 

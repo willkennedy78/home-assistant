@@ -130,7 +130,7 @@ class HighWarning(t.enum8):
         access=READ_ONLY,
         entity_platform=EntityPlatform.SENSOR,
         entity_type=EntityType.DIAGNOSTIC,
-        translation_key="probe_temperature_warning",
+        translation_key="water_temperature_warning",
         fallback_name="Water temperature warning",
     )
     .tuya_enum(
@@ -203,7 +203,7 @@ class HighWarning(t.enum8):
         step=0.1,
         multiplier=0.1,
         unit=UnitOfTemperature.CELSIUS,
-        translation_key="probe_temperature_calibration",
+        translation_key="water_temperature_calibration",
         fallback_name="Water temperature calibration",
     )
     .tuya_number(
@@ -255,7 +255,7 @@ class HighWarning(t.enum8):
         multiplier=0.1,
         unit=UnitOfTemperature.CELSIUS,
         initially_disabled=True,
-        translation_key="probe_temperature_v0",
+        translation_key="water_temperature_v0",
         fallback_name="Water temperature limit 1",
     )
     .tuya_number(
@@ -268,7 +268,7 @@ class HighWarning(t.enum8):
         multiplier=0.1,
         unit=UnitOfTemperature.CELSIUS,
         initially_disabled=True,
-        translation_key="probe_temperature_v1",
+        translation_key="water_temperature_v1",
         fallback_name="Water temperature limit 2",
     )
     .tuya_number(
