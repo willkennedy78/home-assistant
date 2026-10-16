@@ -4,3 +4,5 @@ secrets.yaml
 **/*.log
 **/*.db
 raw/
+__pycache__/
+*.pyc
