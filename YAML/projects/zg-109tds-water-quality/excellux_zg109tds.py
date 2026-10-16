@@ -9,6 +9,8 @@ Drop into the ZHA custom quirks directory and restart Home Assistant.
 
 import zigpy.types as t
 from zigpy.zcl import foundation
+from zigpy.zcl.clusters.closures import DoorLock
+from zigpy.zcl.clusters.security import IasZone
 
 try:  # zhaquirks >= 2026.x: constants live behind the zhaquirks.builder facade
     from zhaquirks.builder import (
@@ -63,11 +65,15 @@ class HighWarning(t.enum8):
 
 
 (
-    # Z2M fingerprint is modelID="Excellux", manufacturerName="DTS1XM9", i.e.
-    # zigpy (manufacturer, model) = ("DTS1XM9", "Excellux"). If your unit reports
-    # TS0601 / _TZE..., add an .applies_to() line with those values.
+    # Basic cluster reports manufacturer="DTS1XM9", model="Excellux" (confirmed
+    # on a real unit, Oct 2026). If yours reports TS0601 / _TZE..., add an
+    # .applies_to() line with those values.
     TuyaQuirkBuilder("DTS1XM9", "Excellux")
     .friendly_name(manufacturer="Excellux", model="ZG-109TDS")
+    # Firmware advertises Door Lock and IAS Zone clusters it never uses; without
+    # these ZHA creates a phantom lock entity and an inert IAS zone sensor.
+    .removes(DoorLock.cluster_id)
+    .removes(IasZone.cluster_id)
     # --- Primary measurements ------------------------------------------------
     # DP1: water probe temperature, 0.1 °C -> ZCL 0.01 °C
     .tuya_temperature(dp_id=1, scale=10)

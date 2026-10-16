@@ -13,6 +13,8 @@ from unittest import mock
 
 from zha.quirks import DEVICE_REGISTRY
 from zigpy.zcl import foundation
+from zigpy.zcl.clusters.closures import DoorLock
+from zigpy.zcl.clusters.security import IasZone
 
 from tests.common import wait_for_zigpy_tasks
 from tests.test_quirks_v2 import ALL_QUIRK_V2
@@ -60,6 +62,17 @@ def _definition():
     ]
     assert len(entries) == 1
     return entries[0]
+
+
+def test_phantom_clusters_removed(zigpy_device_from_v2_quirk):
+    """Door Lock and IAS Zone from the real signature are stripped."""
+    ep = zigpy_device_from_v2_quirk(
+        MANUF,
+        MODEL,
+        cluster_ids={1: {DoorLock.cluster_id: 0, IasZone.cluster_id: 0}},
+    ).endpoints[1]
+    assert DoorLock.cluster_id not in ep.in_clusters
+    assert IasZone.cluster_id not in ep.in_clusters
 
 
 def test_reports_decode(zigpy_device_from_v2_quirk):
