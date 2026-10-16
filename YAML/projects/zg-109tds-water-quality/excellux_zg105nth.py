@@ -16,26 +16,15 @@ Drop into the ZHA custom quirks directory and restart Home Assistant.
 import zigpy.types as t
 from zigpy.zcl import foundation
 
-try:  # zhaquirks >= 2026.x: constants live behind the zhaquirks.builder facade
-    from zhaquirks.builder import (
-        PERCENTAGE,
-        EntityPlatform,
-        EntityType,
-        SensorDeviceClass,
-        SensorStateClass,
-        UnitOfTemperature,
-        UnitOfTime,
-    )
-except ImportError:  # older installs: constants still in zigpy
-    from zigpy.quirks.v2.homeassistant import (
-        PERCENTAGE,
-        EntityPlatform,
-        EntityType,
-        UnitOfTemperature,
-        UnitOfTime,
-    )
-    from zigpy.quirks.v2.homeassistant.sensor import SensorDeviceClass, SensorStateClass
-
+from zhaquirks.builder import (
+    PERCENTAGE,
+    EntityPlatform,
+    EntityType,
+    SensorDeviceClass,
+    SensorStateClass,
+    UnitOfTemperature,
+    UnitOfTime,
+)
 from zhaquirks.tuya.builder import TuyaQuirkBuilder
 
 READ_ONLY = foundation.ZCLAttributeAccess.Read | foundation.ZCLAttributeAccess.Report
